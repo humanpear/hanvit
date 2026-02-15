@@ -1,48 +1,74 @@
 import Logo from '@/shared/assets/images/logo.png'
-import { SECTION_IDS, SectionId } from '@/shared/constants/sections'
-import { motion } from 'motion/react'
+import { NAVIGATION_ITEMS, type SectionId } from '@/shared/constants/sectionIds'
+import { useEffect, useRef, useState } from 'react'
 
-type HeaderProps = {
-  activeSection: SectionId
+interface Props {
+  activeSection: SectionId | ''
 }
 
-const NAV_ITEMS: { id: SectionId; label: string }[] = [
-  { id: 'home', label: '홈' },
-  { id: 'about', label: '회사 소개' },
-  { id: 'portfolio', label: '포트폴리오' },
-  { id: 'process', label: '이용 안내' },
-  { id: 'contactUs', label: '견적 문의' },
-]
+function Header({ activeSection }: Props) {
+  const [menuTop, setMenuTop] = useState(0)
+  const menuRefs = useRef<(HTMLElement | null)[]>([])
 
-function Header({ activeSection }: HeaderProps) {
-  const activeIndex = SECTION_IDS.indexOf(activeSection)
-  const progress =
-    activeIndex >= 0 ? (activeIndex + 1) / SECTION_IDS.length : 0
+  //현재 활성화된 섹션의 인덱스를 찾아서 활성화된 메뉴의 높이를 찾는 코드
+  useEffect(() => {
+    const activeIndex = NAVIGATION_ITEMS.findIndex(
+      (items) => items.id === activeSection,
+    )
+
+    if (activeIndex !== -1) {
+      const currentMenu = menuRefs.current[activeIndex]
+      if (currentMenu) {
+        setMenuTop(currentMenu?.offsetTop + currentMenu?.offsetHeight)
+      }
+    } else {
+      setMenuTop(0)
+    }
+  }, [activeSection])
+
+  const handleClick = (id: SectionId) => {
+    const element = document.getElementById(id)
+    if (!element) return
+    element.scrollIntoView({ behavior: 'smooth' })
+  }
 
   return (
     <header className="flex w-full mt-8 mx-12">
       <div className="flex w-full justify-between">
         <img className="w-[150px] h-10" src={Logo} alt="Hanvit logo" />
-        <div className="flex fixed top-8 right-12 items-stretch gap-4">
-          <motion.div
-            className="w-0.5 bg-blue-500 origin-top rounded-full"
-            animate={{ scaleY: progress }}
-            initial={false}
-            transition={{ type: 'spring', stiffness: 160, damping: 22 }}
-          />
-          <ul className="flex flex-col gap-4 text-right font-bold">
-            {NAV_ITEMS.map((item) => (
+        <div className="flex fixed top-0 right-12 gap-4">
+          <ul className="relative gap-3 pt-8 flex flex-col items-end font-bold">
+            {NAVIGATION_ITEMS.map((item, index) => (
               <li
                 key={item.id}
-                className={item.id === activeSection ? 'text-primary' : ''}
+                ref={(el: HTMLElement | null) => {
+                  menuRefs.current[index] = el
+                }}
+                onClick={() => handleClick(item.id)}
+                className="flex gap-6 items-end"
               >
-                {item.label}
+                <span
+                  className={
+                    activeSection === item.id
+                      ? 'font-extrabold cursor-pointer'
+                      : 'font-medium cursor-pointer'
+                  }
+                >
+                  {item.label}
+                </span>
               </li>
             ))}
           </ul>
+          <div className="relative bg-primary w-0.5">
+            <div
+              className="absolute bg-gold w-0.5 duration-500 left-1/2 transition-all -translate-x-1/2 ease-in-out"
+              style={{
+                height: `${menuTop}px`,
+              }}
+            />
+          </div>
         </div>
       </div>
-      <div className="bg-primary rounded-bl-[8rem] w-80% h-100%" />
     </header>
   )
 }

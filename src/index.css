@@ -41,6 +41,8 @@
     --color-wood-10: #FDF8F6;
     --color-wood-20: #F2E8E5;
     --color-wood-30: #8D7A71;
+    
+    --color-gold: #B88F4E;
 }
 
 @layer base {
