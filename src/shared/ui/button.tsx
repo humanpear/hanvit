@@ -3,12 +3,14 @@ type ButtonVariant = 'ROUNDED' | 'SQUARE'
 interface Props extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   variant?: ButtonVariant
   className?: string
+  onClick: () => void
 }
 
 function Button({
   variant = 'ROUNDED',
   className = '',
   children,
+  onClick,
   ...rest
 }: Props) {
   const variantStyles =
@@ -17,7 +19,7 @@ function Button({
       : 'w-[430px] h-[50px] bg-wood-30 text-white rounded-lg'
 
   return (
-    <button className={`${variantStyles} ${className}`} {...rest}>
+    <button className={`${variantStyles} ${className}`} {...rest} onClick={() => onClick()}>
       {children}
     </button>
   )

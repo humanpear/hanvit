@@ -1,8 +1,19 @@
 import contactUsImg from '@/../public/images/contact.jpg'
 import Button from '@/shared/ui/button'
+import Input from '@/shared/ui/input'
 import Textbox from '@/shared/ui/textbox'
+import { useState } from 'react'
 
 function ContactUs() {
+  const [name, setName] = useState('')
+  const [phoneNumber, setPhoneNumber] = useState('')
+  const [content, setContent] = useState('')
+
+  const handleSubmit = () => {
+    console.log('결과', name, phoneNumber, content)
+    alert(`이름: ${name}\n연락처: ${phoneNumber}\n내용: ${content}`)
+  }
+
   return (
     <section id="contactUs">
       <div className="flex bg-wood-20 py-20">
@@ -16,19 +27,31 @@ function ContactUs() {
           <div className="flex flex-col bg-white rounded-[60px] p-15 gap-6 w-[560px] h-[700px] shadow-2xl">
             <p className="text-wood-30 font-bold">견적 문의</p>
             <p className="font-batang text-5xl font-bold">견적 문의하기</p>
-            <div>
-              <p className="text-wood-30 font-bold">견적 문의</p>
-              <Textbox></Textbox>
+            <div className="flex flex-col gap-2">
+              <p className="text-wood-30 font-bold">이름</p>
+              <Input
+                placeholder="이름을 적어주세요"
+                value={name}
+                onChange={setName}
+              ></Input>
             </div>
-            <div>
-              <p className="text-wood-30 font-bold">견적 문의</p>
-              <Textbox></Textbox>
+            <div className="flex flex-col gap-2">
+              <p className="text-wood-30 font-bold">연락처</p>
+              <Input
+                placeholder="연락받을 전화번호를 적어주세요"
+                value={phoneNumber}
+                onChange={setPhoneNumber}
+              ></Input>
             </div>
-            <div>
-              <p className="text-wood-30 font-bold">견적 문의</p>
-              <Textbox></Textbox>
+            <div className="flex flex-col gap-2">
+              <p className="text-wood-30 font-bold">문의 내용</p>
+              <Textbox
+                placeholder="어떤 공간을 리모델링 하고 싶으신가요?"
+                value={content}
+                onChange={setContent}
+              ></Textbox>
             </div>
-            <Button variant="SQUARE">문의 보내기</Button>
+            <Button variant="SQUARE" onClick={handleSubmit}>문의 보내기</Button>
           </div>
         </div>
       </div>
