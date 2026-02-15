@@ -10,8 +10,18 @@ function ContactUs() {
   const [content, setContent] = useState('')
 
   const handleSubmit = () => {
+    if (!name) {
+      alert('이름을 적어주세요')
+    }
+    else if (!phoneNumber) {
+      alert('연락처를 적어주세요')
+    }
+    else if (!content) {
+      alert('문의 내용을 적어주세요')
+    } else {
     console.log('결과', name, phoneNumber, content)
     alert(`이름: ${name}\n연락처: ${phoneNumber}\n내용: ${content}`)
+    }
   }
 
   return (
