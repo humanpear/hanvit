@@ -19,7 +19,7 @@ function Button({
       : 'w-[430px] h-[50px] bg-wood-30 text-white rounded-lg'
 
   return (
-    <button className={`${variantStyles} ${className}`} {...rest} onClick={() => onClick()}>
+    <button className={`cursor-pointer ${variantStyles} ${className}`} {...rest} onClick={() => onClick()}>
       {children}
     </button>
   )

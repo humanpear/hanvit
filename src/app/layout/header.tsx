@@ -36,7 +36,7 @@ function Header({ activeSection }: Props) {
     <header className="flex w-full mt-8 mx-12">
       <div className="flex w-full justify-between">
         <img className="w-[150px] h-10" src={Logo} alt="Hanvit logo" />
-        <div className="flex fixed top-0 right-12 gap-4">
+        <div className="flex fixed top-0 right-12 gap-4 z-100">
           <ul className="relative gap-3 pt-8 flex flex-col items-end font-bold">
             {NAVIGATION_ITEMS.map((item, index) => (
               <li
