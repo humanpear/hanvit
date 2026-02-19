@@ -8,23 +8,21 @@ function PortfolioSlider() {
   return (
     <div className="relative">
       <Swiper
-        className="portfolio-swiper h-[500px] w-full"
-        spaceBetween={12}
+        className="h-[500px] w-full"
+        spaceBetween={0}
         slidesPerView={'auto'}
         loop={true}
-        centeredSlides={false}
-        speed={7000}
+        speed={6000}
+        freeMode={true}
         autoplay={{
           delay: 0,
-          disableOnInteraction: false,
-          pauseOnMouseEnter: true,
         }}
         modules={[Autoplay]}
       >
         {slides.map((items, index) => (
-          <SwiperSlide key={items.id} className="w-auto!">
+          <SwiperSlide key={items.id} className="w-auto! p-3">
             <img
-              className="block h-full w-auto max-w-none object-cover"
+              className="block h-full w-auto max-w-none object-cover hover:scale-105 overflow-visible transition-all cursor-pointer"
               src={items.imageUrl}
               alt={`image${index}`}
             />

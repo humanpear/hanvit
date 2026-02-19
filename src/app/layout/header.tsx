@@ -9,6 +9,11 @@ interface Props {
 function Header({ activeSection }: Props) {
   const [menuTop, setMenuTop] = useState(0)
   const menuRefs = useRef<(HTMLElement | null)[]>([])
+  const params = window.location.pathname
+  
+  useEffect(() => {
+    console.log(params)
+  })
 
   //현재 활성화된 섹션의 인덱스를 찾아서 활성화된 메뉴의 높이를 찾는 코드
   useEffect(() => {
@@ -35,7 +40,7 @@ function Header({ activeSection }: Props) {
   return (
     <header className="flex w-full mt-8 mx-12">
       <div className="flex w-full justify-between">
-        <img className="w-[150px] h-10" src={Logo} alt="Hanvit logo" />
+        <img className="w-[150px] object-cover" src={Logo} alt="Hanvit logo" />
         <div className="flex fixed top-0 right-12 gap-4 z-100">
           <ul className="relative gap-3 pt-8 flex flex-col items-end font-bold">
             {NAVIGATION_ITEMS.map((item, index) => (

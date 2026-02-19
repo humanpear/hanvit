@@ -12,7 +12,7 @@ export function useScrollSpy<T extends string>(sectionIds: T[]): T | '' {
           }
         })
       },
-      { threshold: 0.4 }
+      { threshold: 0.8 }
     )
 
     sectionIds.forEach((id) => {
