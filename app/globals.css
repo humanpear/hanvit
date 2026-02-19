@@ -1,0 +1,65 @@
+@import "tailwindcss";
+
+:root {
+  --background: #fdf8f6;
+  --foreground: #454647;
+}
+
+@font-face {
+  font-family: "Pretendard Variable";
+  font-weight: 45 920;
+  font-style: normal;
+  font-display: swap;
+  src: url("/fonts/pretendard/PretendardVariable.woff2")
+    format("woff2-variations");
+}
+
+@font-face {
+  font-family: "KoPub Batang";
+  font-style: normal;
+  font-weight: 300;
+  font-display: swap;
+  src: url("/fonts/koPubBatang/KoPub Batang_Pro Light.otf") format("opentype");
+}
+
+@font-face {
+  font-family: "KoPub Batang";
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url("/fonts/koPubBatang/KoPub Batang_Pro Medium.otf") format("opentype");
+}
+
+@font-face {
+  font-family: "KoPub Batang";
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url("/fonts/koPubBatang/KoPub Batang_Pro Bold.otf") format("opentype");
+}
+
+@theme inline {
+  --font-sans: "Pretendard Variable", "Pretendard", system-ui, sans-serif;
+  --font-batang: "KoPub Batang", system-ui, sans-serif;
+
+  --color-primary: #454647;
+
+  --color-wood-10: #fdf8f6;
+  --color-wood-20: #f2e8e5;
+  --color-wood-30: #8d7a71;
+
+  --color-gold: #b88f4e;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #0a0a0a;
+    --foreground: #ededed;
+  }
+}
+
+@layer base {
+  body {
+    @apply font-sans text-primary bg-wood-10;
+  }
+}
