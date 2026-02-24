@@ -1,18 +1,22 @@
-interface Props {
-  value: string
-  placeholder: string
-  onChange: (value: string) => void
+import { forwardRef, TextareaHTMLAttributes } from "react";
+
+interface Props extends TextareaHTMLAttributes<HTMLTextAreaElement> {
+  label?: string;
 }
 
-function Textbox({ value, placeholder, onChange }: Props) {
-  return (
-    <textarea
-      className={`bg-wood-10 w-full h-42 rounded-xl p-3 resize-none overflow-hidden`}
-      placeholder={placeholder}
-      value={value}
-      onChange={(e) => onChange(e.target.value)}
-    />
-  )
-}
+const Textarea = forwardRef<HTMLTextAreaElement, Props>(
+  ({ placeholder, ...props }, ref) => {
+    return (
+      <textarea
+        {...props}
+        ref={ref}
+        className={`w-full h-42 p-3 border border-[#7B7B7B] resize-none overflow-hidden`}
+        placeholder={placeholder}
+      />
+    );
+  },
+);
 
-export default Textbox
+Textarea.displayName = "Textbox";
+
+export default Textarea;

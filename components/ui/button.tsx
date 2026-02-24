@@ -1,28 +1,39 @@
-type ButtonVariant = 'ROUNDED' | 'SQUARE'
+type ButtonVariant = "ROUNDED" | "SQUARE" | "ESTIMATE" | "WORKTYPE";
 
 interface Props extends React.ButtonHTMLAttributes<HTMLButtonElement> {
-  variant?: ButtonVariant
-  className?: string
-  onClick: () => void
+  variant?: ButtonVariant;
+  className?: string;
 }
 
 function Button({
-  variant = 'ROUNDED',
-  className = '',
+  variant = "ROUNDED",
+  className = "",
   children,
-  onClick,
   ...rest
 }: Props) {
-  const variantStyles =
-    variant === 'ROUNDED'
-      ? 'w-[180px] h-[50px] bg-primary text-white rounded-4xl'
-      : 'w-[430px] h-[50px] bg-wood-30 text-white rounded-lg'
+  const variantStyles = () => {
+    switch (variant) {
+      case "ROUNDED":
+        return "w-[180px] h-[50px] bg-primary text-white rounded-4xl";
+      case "SQUARE":
+        return "w-full h-[50px] bg-wood-30 text-white rounded-lg";
+      case "ESTIMATE":
+        return "w-40 h-full bg-primary text-white";
+      case "WORKTYPE":
+        return "w-full h-10 bg-white border border-primary";
+      default:
+        return "";
+    }
+  };
 
   return (
-    <button className={`cursor-pointer ${variantStyles} ${className}`} {...rest} onClick={() => onClick()}>
+    <button
+      className={`cursor-pointer hover:font-semibold transition-all ${variantStyles()} ${className}`}
+      {...rest}
+    >
       {children}
     </button>
-  )
+  );
 }
 
-export default Button
+export default Button;

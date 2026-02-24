@@ -1,18 +1,22 @@
-interface Props {
-  value: string
-  placeholder: string
-  onChange: (value: string) => void
+import { forwardRef, InputHTMLAttributes } from "react";
+
+interface Props extends InputHTMLAttributes<HTMLInputElement> {
+  label?: string;
 }
 
-function Input({ value, placeholder, onChange }: Props) {
-  return (
-    <input
-      className={`bg-wood-10 w-full h-10 rounded-xl resize-none px-3`}
-      placeholder={placeholder}
-      value={value}
-      onChange={(e)=> onChange(e.target.value)}
-    />
-  )
-}
+const Input = forwardRef<HTMLInputElement, Props>(
+  ({ placeholder, ...props }, ref) => {
+    return (
+      <input
+        {...props}
+        ref={ref}
+        className={`w-full h-10 border-[#7B7B7B] border resize-none px-3`}
+        placeholder={placeholder}
+      />
+    );
+  },
+);
 
-export default Input
+Input.displayName = 'Input'
+
+export default Input;
