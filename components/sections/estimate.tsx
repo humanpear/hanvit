@@ -5,16 +5,37 @@ import Input from "../ui/input";
 import Textbox from "../ui/textbox";
 import Button from "../ui/button";
 import { Address, useKakaoPostcodePopup } from "react-daum-postcode";
-import { useForm } from "react-hook-form";
+import { SubmitErrorHandler, useForm } from "react-hook-form";
 import Dropdown from "../ui/dropdown";
-import { EstimateForm, WorkType } from "@/types/estimate";
+import { ErrorFiledLabel, EstimateForm, WorkType } from "@/types/estimate";
+import { toast } from "sonner";
 
 function Estimate() {
   const { register, handleSubmit, setValue } = useForm<EstimateForm>();
 
-  const onSubmit = (data: EstimateForm) => {
+  const onValid = (data: EstimateForm) => {
     console.log("최종 제출 데이터 : ", data);
   };
+
+  //썼다가 지웠을때도 순서대로 나오게 하고싶은데..
+  const onInValid: SubmitErrorHandler<EstimateForm> = (errors) => {
+    const firstErrorField = Object.keys(errors)[0] as keyof EstimateForm | undefined
+    if (!firstErrorField) return
+
+    const firstErrorLabel = ErrorFiledLabel[firstErrorField]
+
+    const lastWord = firstErrorLabel.charAt(firstErrorLabel.length-1)
+    const code = (lastWord.charCodeAt(0) - 44032) % 28
+    let josa = ''
+
+    if (code === 0) {
+      josa = '를'
+    } else {
+      josa = '을'
+    }
+
+    toast.error(`${ErrorFiledLabel[firstErrorField]}${josa} 입력해주세요.`, { position: "top-center" })
+  }
 
   //카카오 주소검색 팝업
   const openPopup = useKakaoPostcodePopup(
@@ -48,7 +69,10 @@ function Estimate() {
 
   return (
     <section id="estimate">
-      <form className="flex bg-wood-20 py-20" onSubmit={handleSubmit(onSubmit)}>
+      <form
+        className="flex bg-wood-20 py-20"
+        onSubmit={handleSubmit(onValid, onInValid)}
+      >
         <div className="flex flex-col gap-12 bg-white rounded-[60px] w-auto mx-auto p-10 shadow-2xl">
           <div className="flex flex-col pt-5 pl-20 gap-4">
             <p className="text-wood-30 font-bold">견적 문의</p>
@@ -69,9 +93,7 @@ function Estimate() {
                     고객명 <p className="text-red-500">*</p>
                   </label>
                   <Input
-                    {...register("name", {
-                      required: "고객명을 입력해 주세요.",
-                    })}
+                    {...register("name", {required:true})}
                     placeholder="이름을 적어주세요"
                     id="name"
                   />
@@ -81,9 +103,7 @@ function Estimate() {
                     연락처 <p className="text-red-500">*</p>
                   </label>
                   <Input
-                    {...register("phone", {
-                      required: "연락처을 입력해 주세요.",
-                    })}
+                    {...register("phone", {required:true})}
                     placeholder="연락받을 전화번호를 적어주세요"
                     id="phone"
                   />
@@ -95,18 +115,20 @@ function Estimate() {
                 </label>
                 <div className="flex">
                   <Input
-                    {...register("address",)}
+                    {...register("address", {required:true})}
                     placeholder="주소 검색"
                     disabled
                   />
-                  <Button type="button" onClick={handleSearchAddress} variant={"ESTIMATE"}>
+                  <Button
+                    type="button"
+                    onClick={handleSearchAddress}
+                    variant={"ESTIMATE"}
+                  >
                     주소 검색
                   </Button>
                 </div>
                 <Input
-                  {...register("detailAddress", {
-                      required: "상세 주소를 입력해 주세요.",
-                    })}
+                  {...register("detailAddress", {required:true})}
                   placeholder="상세 주소를 적어주세요"
                   id="detailAddress"
                 />
@@ -117,19 +139,19 @@ function Estimate() {
                   <label className="flex gap-1 font-bold">
                     공간유형 <p className="text-red-500">*</p>
                   </label>
-                  <Dropdown {...register("spaceType")} />
+                  <Dropdown {...register("spaceType", {required:true})} />
                 </div>
                 <div className="relative flex flex-col w-full gap-2">
                   <label className="flex gap-1 font-bold">
                     평형 <p className="text-red-500">*</p>
                   </label>
                   <Input
-                    {...register("squareFeet", {
-                      required: "평형을 입력해 주세요.",                      
-                    })}
+                    {...register("squareFeet", {required:true})}
                     placeholder="공급면적 기준"
                   />
-                  <span className="absolute bottom-0 right-0 pb-2 pr-4">평</span>
+                  <span className="absolute bottom-0 right-0 pb-2 pr-4">
+                    평
+                  </span>
                 </div>
               </div>
               <div className="flex flex-col w-full gap-2">
@@ -145,7 +167,10 @@ function Estimate() {
                       <input
                         type="checkbox"
                         value={item.id}
-                        {...register("workType", {validate: v => v?.length > 0 || '시공범위를 선택해 주세요'})}
+                        {...register("workType", {
+                          validate: (v) =>
+                            v?.length > 0 || "시공범위를 선택해 주세요",
+                        })}
                         className="sr-only peer"
                       />
                       <span
@@ -166,7 +191,7 @@ function Estimate() {
                 />
               </div>
 
-              <Button type='submit' variant="SQUARE" onClick={() => onSubmit} className="">
+              <Button type="submit" variant="SQUARE" className="">
                 문의 보내기
               </Button>
             </div>
