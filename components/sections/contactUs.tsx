@@ -1,70 +1,72 @@
-"use client";
-
 import Image from "next/image";
-import { useState } from "react";
-import Input from "../ui/input";
-import Textbox from "../ui/textbox";
-import Button from "../ui/button";
 
 function ContactUs() {
-  const [name, setName] = useState("");
-  const [phoneNumber, setPhoneNumber] = useState("");
-  const [content, setContent] = useState("");
-
-  const handleSubmit = () => {
-    if (!name) {
-      alert("이름을 적어주세요");
-    } else if (!phoneNumber) {
-      alert("연락처를 적어주세요");
-    } else if (!content) {
-      alert("문의 내용을 적어주세요");
-    } else {
-      console.log("결과", name, phoneNumber, content);
-      alert(`이름: ${name}\n연락처: ${phoneNumber}\n내용: ${content}`);
-    }
-  };
-
   return (
     <section id="contactUs">
-      <div className="flex bg-wood-20 py-20">
-        <div className="flex gap-12 w-auto mx-auto">
-          <Image
-            className="rounded-[60px] h-175 shadow-2xl"
-            src="/images/contact.jpg"
-            alt="contactUsImg"
-            width={560}
-            height={700}
-          />
-          <div className="flex flex-col bg-white rounded-[60px] p-15 gap-6 w-140 h-175 shadow-2xl">
-            <p className="text-wood-30 font-bold">견적 문의</p>
-            <p className="font-batang text-5xl font-bold">견적 문의하기</p>
-            <div className="flex flex-col gap-2">
-              <p className="text-wood-30 font-bold">이름</p>
-              <Input
-                placeholder="이름을 적어주세요"
-                value={name}
-                onChange={setName}
-              ></Input>
+      <div className="flex flex-col gap-8 py-20">
+        <div className="flex flex-col gap-4 items-center">
+          <p className="text-wood-30 font-bold">업체 안내</p>
+          <p className="font-batang text-5xl font-bold">문의 및 오시는 길</p>
+          <p>궁금하신 점이 있다면 언제든 편하게 연락주세요.</p>
+        </div>
+        <div className="flex gap-4 justify-center">
+          <div className="flex flex-col gap-4">
+            <div className="flex flex-col gap-2 rounded-2xl bg-white p-6 w-100">
+              <div className="flex flex-col gap-2 border-b-wood-20 border-b-2 pb-4">
+                <div className="flex gap-2 items-center">
+                  <Image
+                    src="/icons/phone.svg"
+                    alt="전화 아이콘"
+                    width={24}
+                    height={24}
+                  />
+                  <p>031-591-5614</p>
+                </div>
+                <div className="flex gap-2 items-center">
+                  <Image
+                    src="/icons/mail.svg"
+                    alt="메일 아이콘"
+                    width={24}
+                    height={24}
+                  />
+                  <p>interiorhv@naver.com</p>
+                </div>
+              </div>
+              <div className="flex flex-col gap-2 pt-2">
+                <div className="flex gap-2 items-center">
+                  <Image
+                    src="/icons/pin.svg"
+                    alt="핀 아이콘"
+                    width={24}
+                    height={24}
+                  />
+                  <p>경기 남양주시 화도읍 먹갓원터길 18 한빛인테리어</p>
+                </div>
+              </div>
             </div>
-            <div className="flex flex-col gap-2">
-              <p className="text-wood-30 font-bold">연락처</p>
-              <Input
-                placeholder="연락받을 전화번호를 적어주세요"
-                value={phoneNumber}
-                onChange={setPhoneNumber}
-              ></Input>
+            <div className="flex flex-col gap-4 rounded-2xl bg-white p-6 w-100">
+              <div className="flex gap-2 items-center">
+                <Image
+                  src="/images/naver.svg"
+                  alt="네이버"
+                  width={24}
+                  height={24}
+                />
+                <p>네이버 업체 링크</p>
+              </div>
+              <div className="flex gap-2 items-center">
+                <Image
+                  src="/images/instagram.webp"
+                  alt="인스타그램"
+                  width={24}
+                  height={24}
+                />
+                <p>@hanvitys</p>
+              </div>
             </div>
-            <div className="flex flex-col gap-2">
-              <p className="text-wood-30 font-bold">문의 내용</p>
-              <Textbox
-                placeholder="어떤 공간을 리모델링 하고 싶으신가요?"
-                value={content}
-                onChange={setContent}
-              ></Textbox>
-            </div>
-            <Button variant="SQUARE" onClick={handleSubmit}>
-              문의 보내기
-            </Button>
+          </div>
+          <div className="bg-white p-4 rounded-2xl">
+            <div className="bg-primary rounded-2xl w-100 h-80"></div>
           </div>
         </div>
       </div>

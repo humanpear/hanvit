@@ -2,7 +2,7 @@ import Image from "next/image";
 
 function Footer() {
   return (
-    <footer className="h-50 bg-wood-20 w-full pt-5">
+    <footer className="h-50 w-full bg-white pt-5">
       <div className="bg-wood-10 w-full h-full rounded-t-[60px] pt-15 px-10 shadow-[0px_-10px_15px_-3px_rgba(0,0,0,0.1)]">
         <div className="flex justify-between items-end pb-6 border-b border-gray-400">
           <div className="w-37.5">
