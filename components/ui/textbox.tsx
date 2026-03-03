@@ -10,7 +10,7 @@ const Textarea = forwardRef<HTMLTextAreaElement, Props>(
       <textarea
         {...props}
         ref={ref}
-        className={`w-full h-42 p-3 border border-[#7B7B7B] resize-none overflow-hidden`}
+        className={`w-full h-42 p-3 border border-[#7B7B7B] resize-none overflow-hidden focus-visible:outline-none focus:border-2`}
         placeholder={placeholder}
       />
     );

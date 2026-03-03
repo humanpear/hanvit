@@ -126,7 +126,7 @@
 
 @layer base {
   body {
-    @apply font-sans text-primary bg-wood-10;    
+    @apply font-sans text-primary bg-wood-10 select-none;    
   }
   * {
     @apply border-border outline-ring/50;

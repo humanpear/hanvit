@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import type { ChangeEvent } from "react";
 import Input from "../ui/input";
 import Textbox from "../ui/textbox";
 import Button from "../ui/button";
@@ -19,23 +20,27 @@ function Estimate() {
 
   //썼다가 지웠을때도 순서대로 나오게 하고싶은데..
   const onInValid: SubmitErrorHandler<EstimateForm> = (errors) => {
-    const firstErrorField = Object.keys(errors)[0] as keyof EstimateForm | undefined
-    if (!firstErrorField) return
+    const firstErrorField = Object.keys(errors)[0] as
+      | keyof EstimateForm
+      | undefined;
+    if (!firstErrorField) return;
 
-    const firstErrorLabel = ErrorFiledLabel[firstErrorField]
+    const firstErrorLabel = ErrorFiledLabel[firstErrorField];
 
-    const lastWord = firstErrorLabel.charAt(firstErrorLabel.length-1)
-    const code = (lastWord.charCodeAt(0) - 44032) % 28
-    let josa = ''
+    const lastWord = firstErrorLabel.charAt(firstErrorLabel.length - 1);
+    const code = (lastWord.charCodeAt(0) - 44032) % 28;
+    let josa = "";
 
     if (code === 0) {
-      josa = '를'
+      josa = "를";
     } else {
-      josa = '을'
+      josa = "을";
     }
 
-    toast.error(`${ErrorFiledLabel[firstErrorField]}${josa} 입력해주세요.`, { position: "top-center" })
-  }
+    toast.error(`${ErrorFiledLabel[firstErrorField]}${josa} 입력해주세요.`, {
+      position: "top-center",
+    });
+  };
 
   //카카오 주소검색 팝업
   const openPopup = useKakaoPostcodePopup(
@@ -67,6 +72,25 @@ function Estimate() {
     openPopup({ onComplete: handleComplete });
   };
 
+  //연락처 하이픈 자동 삽입
+  const formatPhoneNumber = (value: string) => {
+    const numbers = value.replace(/\D/g, "").slice(0, 11);
+
+    if (numbers.length <= 3) return numbers;
+    if (numbers.length <= 7) {
+      return `${numbers.slice(0, 3)}-${numbers.slice(3)}`;
+    }
+
+    return `${numbers.slice(0, 3)}-${numbers.slice(3, 7)}-${numbers.slice(7)}`;
+  };
+
+  const handlePhoneChange = (event: ChangeEvent<HTMLInputElement>) => {
+    setValue("phone", formatPhoneNumber(event.target.value), {
+      shouldDirty: true,
+      shouldValidate: true,
+    });
+  };
+
   return (
     <section id="estimate">
       <form
@@ -93,7 +117,7 @@ function Estimate() {
                     고객명 <p className="text-red-500">*</p>
                   </label>
                   <Input
-                    {...register("name", {required:true})}
+                    {...register("name", { required: true })}
                     placeholder="이름을 적어주세요"
                     id="name"
                   />
@@ -103,7 +127,10 @@ function Estimate() {
                     연락처 <p className="text-red-500">*</p>
                   </label>
                   <Input
-                    {...register("phone", {required:true})}
+                    {...register("phone", {
+                      required: true,
+                      onChange: handlePhoneChange,
+                    })}
                     placeholder="연락받을 전화번호를 적어주세요"
                     id="phone"
                   />
@@ -115,7 +142,7 @@ function Estimate() {
                 </label>
                 <div className="flex">
                   <Input
-                    {...register("address", {required:true})}
+                    {...register("address", { required: true })}
                     placeholder="주소 검색"
                     disabled
                   />
@@ -128,7 +155,7 @@ function Estimate() {
                   </Button>
                 </div>
                 <Input
-                  {...register("detailAddress", {required:true})}
+                  {...register("detailAddress", { required: true })}
                   placeholder="상세 주소를 적어주세요"
                   id="detailAddress"
                 />
@@ -139,15 +166,16 @@ function Estimate() {
                   <label className="flex gap-1 font-bold">
                     공간유형 <p className="text-red-500">*</p>
                   </label>
-                  <Dropdown {...register("spaceType", {required:true})} />
+                  <Dropdown {...register("spaceType", { required: true })} />
                 </div>
                 <div className="relative flex flex-col w-full gap-2">
                   <label className="flex gap-1 font-bold">
                     평형 <p className="text-red-500">*</p>
                   </label>
                   <Input
-                    {...register("squareFeet", {required:true})}
+                    {...register("squareFeet", { required: true })}
                     placeholder="공급면적 기준"
+                    type="number"
                   />
                   <span className="absolute bottom-0 right-0 pb-2 pr-4">
                     평
