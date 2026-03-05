@@ -1,4 +1,4 @@
-type ButtonVariant = "ROUNDED" | "SQUARE" | "ESTIMATE" | "WORKTYPE";
+type ButtonVariant = "ROUNDED" | "SQUARE" | "ESTIMATE" | "WORKTYPE" ;
 
 interface Props extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   variant?: ButtonVariant;
@@ -22,7 +22,7 @@ function Button({
       case "WORKTYPE":
         return "w-full h-10 bg-white border border-primary";
       default:
-        return "";
+        return "w-";
     }
   };
 

@@ -3,7 +3,7 @@ import Image from "next/image";
 function ContactUs() {
   return (
     <section id="contactUs">
-      <div className="flex flex-col gap-8 py-20">
+      <div className="flex flex-col gap-8 py-20 bg-white">
         <div className="flex flex-col gap-4 items-center">
           <p className="text-wood-30 font-bold">업체 안내</p>
           <p className="font-batang text-5xl font-bold">문의 및 오시는 길</p>
@@ -11,7 +11,7 @@ function ContactUs() {
         </div>
         <div className="flex gap-4 justify-center">
           <div className="flex flex-col gap-4">
-            <div className="flex flex-col gap-2 rounded-2xl bg-white p-6 w-100">
+            <div className="flex flex-col gap-2 rounded-2xl bg-white p-6 w-100 shadow-lg">
               <div className="flex flex-col gap-2 border-b-wood-20 border-b-2 pb-4">
                 <div className="flex gap-2 items-center">
                   <Image
@@ -44,7 +44,7 @@ function ContactUs() {
                 </div>
               </div>
             </div>
-            <div className="flex flex-col gap-4 rounded-2xl bg-white p-6 w-100">
+            <div className="flex flex-col gap-4 rounded-2xl bg-white p-6 w-100 shadow-lg">
               <div className="flex gap-2 items-center">
                 <Image
                   src="/images/naver.svg"
