@@ -6,6 +6,7 @@ import { useState } from "react";
 import { cn } from "@/lib/utils";
 import { portfolioProjects } from "@/lib/portfolio-data";
 
+
 const countProjectTag = portfolioProjects.reduce<Record<string, number>>(
   (countMap, item) => {
     countMap[item.spaceType] = (countMap[item.spaceType] || 0) + 1;
@@ -13,8 +14,6 @@ const countProjectTag = portfolioProjects.reduce<Record<string, number>>(
   },
   { all: portfolioProjects.length },
 );
-
-console.log(countProjectTag);
 
 function PortfolioMain() {
   const [selectedTag, setSelectedTag] = useState("all");

@@ -1,6 +1,7 @@
 import { PortfolioProject } from "@/lib/portfolio-data";
 import { spaceFilter, SpaceFilterId } from "@/types/portfolio";
 import Image from "next/image";
+import Link from "next/link";
 
 function PortfolioCard({ projects }: { projects: PortfolioProject[] }) {
   const LABEL_BY_ID: Record<SpaceFilterId, string> = Object.fromEntries(
@@ -17,20 +18,20 @@ function PortfolioCard({ projects }: { projects: PortfolioProject[] }) {
   return (
     <div className="min-h-200 grid grid-cols-4 gap-5 p-10">
       {projects.map((items) => {
-        const label =
-          LABEL_BY_ID[items.spaceType as keyof typeof LABEL_BY_ID]
+        const label = LABEL_BY_ID[items.spaceType as keyof typeof LABEL_BY_ID];
         return (
           <div
             key={items.id}
             className="relative w-full h-fit border rounded-2xl shadow-lg overflow-hidden transition-shadow duration-500 hover:shadow-2xl"
           >
+            <Link href={`/portfolio/${items.id}`}>
             <Image
               src={items.photos[0]}
               alt="사진"
               width={300}
               height={200}
               unoptimized
-              className="rounded-t-2xl object-cover transition-transform duration-500 hover:scale-105"
+              className="rounded-t-2xl w-full transition-transform duration-500 hover:scale-105"
             />
             <div className="flex flex-col p-5 gap-1">
               <p className="font-bold">{items.title}</p>
@@ -52,6 +53,7 @@ function PortfolioCard({ projects }: { projects: PortfolioProject[] }) {
                 ))}
               </div>
             </div>
+            </Link>
           </div>
         );
       })}
