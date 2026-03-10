@@ -1,6 +1,6 @@
 import { twMerge } from "tailwind-merge";
 
-type ButtonVariant = "ROUNDED" | "SQUARE" | "ESTIMATE" | "WORKTYPE";
+type ButtonVariant = "ROUNDED" | "SQUARE" | "ESTIMATE" ;
 
 interface Props extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   variant?: ButtonVariant;

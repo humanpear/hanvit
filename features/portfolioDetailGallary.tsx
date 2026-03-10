@@ -19,7 +19,7 @@ function PortfolioDetailGallary({ photos }: { photos: string[] }) {
         <div
           key={index}
           onClick={() => handleModalOpen(index)}
-          className="mb-3 break-inside-avoid"
+          className="mb-3 break-inside-avoid cursor-pointer"
         >
           <Image
             src={item}

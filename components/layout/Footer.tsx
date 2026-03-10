@@ -25,7 +25,7 @@ function Footer() {
               <Image
                 className="w-8 h-8 cursor-pointer"
                 src="/images/instagram.webp"
-                alt="Insagram logo"
+                alt="Instagram logo"
                 width={40}
                 height={40}
               />
