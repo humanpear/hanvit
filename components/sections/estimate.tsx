@@ -144,7 +144,7 @@ function Estimate() {
                   <Input
                     {...register("address", { required: true })}
                     placeholder="주소 검색"
-                    disabled
+                    readOnly
                   />
                   <Button
                     type="button"
