@@ -8,7 +8,7 @@ import Button from "../ui/button";
 import { Address, useKakaoPostcodePopup } from "react-daum-postcode";
 import { SubmitErrorHandler, useForm } from "react-hook-form";
 import Dropdown from "../ui/dropdown";
-import { ErrorFiledLabel, EstimateForm, WorkType } from "@/types/estimate";
+import { EstimateMap, EstimateForm, WorkType } from "@/types/estimate";
 import { toast } from "sonner";
 
 function Estimate() {
@@ -25,7 +25,7 @@ function Estimate() {
       | undefined;
     if (!firstErrorField) return;
 
-    const firstErrorLabel = ErrorFiledLabel[firstErrorField];
+    const firstErrorLabel = EstimateMap[firstErrorField];
 
     const lastWord = firstErrorLabel.charAt(firstErrorLabel.length - 1);
     const code = (lastWord.charCodeAt(0) - 44032) % 28;
@@ -37,7 +37,7 @@ function Estimate() {
       josa = "을";
     }
 
-    toast.error(`${ErrorFiledLabel[firstErrorField]}${josa} 입력해주세요.`, {
+    toast.error(`${EstimateMap[firstErrorField]}${josa} 입력해주세요.`, {
       position: "top-center",
     });
   };
@@ -114,7 +114,7 @@ function Estimate() {
               <div className="flex gap-4">
                 <div className="flex flex-col w-full gap-2">
                   <label className="flex gap-1 font-bold">
-                    고객명 <p className="text-red-500">*</p>
+                    {EstimateMap.name} <p className="text-red-500">*</p>
                   </label>
                   <Input
                     {...register("name", { required: true })}
@@ -124,7 +124,7 @@ function Estimate() {
                 </div>
                 <div className="flex flex-col w-full gap-2">
                   <label className="flex gap-1 font-bold">
-                    연락처 <p className="text-red-500">*</p>
+                    {EstimateMap.phone} <p className="text-red-500">*</p>
                   </label>
                   <Input
                     {...register("phone", {
@@ -138,7 +138,7 @@ function Estimate() {
               </div>
               <div className="flex flex-col gap-1">
                 <label className="flex gap-1 pb-1 font-bold">
-                  주소 <p className="text-red-500">*</p>
+                  {EstimateMap.address} <p className="text-red-500">*</p>
                 </label>
                 <div className="flex">
                   <Input
@@ -164,13 +164,13 @@ function Estimate() {
               <div className="flex gap-4">
                 <div className="flex flex-col w-full gap-2">
                   <label className="flex gap-1 font-bold">
-                    공간유형 <p className="text-red-500">*</p>
+                    {EstimateMap.spaceType} <p className="text-red-500">*</p>
                   </label>
                   <Dropdown {...register("spaceType", { required: true })} />
                 </div>
                 <div className="relative flex flex-col w-full gap-2">
                   <label className="flex gap-1 font-bold">
-                    평형 <p className="text-red-500">*</p>
+                    {EstimateMap.squareFeet} <p className="text-red-500">*</p>
                   </label>
                   <Input
                     {...register("squareFeet", { required: true })}
@@ -184,7 +184,7 @@ function Estimate() {
               </div>
               <div className="flex flex-col w-full gap-2">
                 <label className="flex gap-1 font-bold">
-                  시공범위 <p className="text-red-500">*</p>
+                  {EstimateMap.workType} <p className="text-red-500">*</p>
                   <p className="flex font-light text-sm items-center">
                     시공예정 항목을 모두 선택해주세요
                   </p>
@@ -212,14 +212,14 @@ function Estimate() {
                 </div>
               </div>
               <div className="flex flex-col gap-2">
-                <label className="font-bold">문의 내용</label>
+                <label className="font-bold">{EstimateMap.contents}</label>
                 <Textbox
                   {...register("contents")}
                   placeholder="어떤 공간을 리모델링 하고 싶으신가요?"
                 />
               </div>
 
-              <Button type="submit" variant="SQUARE" className="">
+              <Button type="submit" variant="SQUARE">
                 문의 보내기
               </Button>
             </div>

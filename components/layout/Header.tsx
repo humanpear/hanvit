@@ -15,8 +15,8 @@ function Header() {
   const menuRefs = useRef<(HTMLElement | null)[]>([]);
   const pathname = usePathname();
   const activeSection = useScrollSpy(SECTION_IDS);
-  const router = useRouter()
- 
+  const router = useRouter();
+
   //현재 활성화된 섹션의 인덱스를 찾아서 활성화된 메뉴의 높이를 찾는 코드
   useEffect(() => {
     const activeIndex = NAVIGATION_ITEMS.findIndex(
@@ -45,11 +45,11 @@ function Header() {
       <div className="flex w-full justify-between">
         <Image
           className="w-37.5 object-cover cursor-pointer"
-          src="/images/logo.png"
+          src="/images/logo.svg"
           alt="Hanvit logo"
           width={150}
           height={60}
-          onClick={() => router.push('/')}
+          onClick={() => router.push("/")}
         />
         {pathname === "/" ? (
           <div className="flex fixed top-0 right-12 gap-4 z-100">
@@ -73,7 +73,7 @@ function Header() {
                     {item.label}
                   </span>
                 </li>
-              ))}              
+              ))}
             </ul>
             <div className="relative bg-primary w-0.5">
               <div
@@ -85,7 +85,7 @@ function Header() {
             </div>
           </div>
         ) : (
-          <div className="fixed right-12 top-8">미정</div>
+          <div className="fixed flex right-8 top-8 font-semibold"></div>
         )}
       </div>
     </header>
