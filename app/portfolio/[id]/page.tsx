@@ -4,15 +4,18 @@ import Button from "@/components/ui/button";
 import { LABEL_BY_ID } from "@/types/portfolio";
 import { ChevronLeft } from "lucide-react";
 import Link from "next/link";
+import { notFound } from "next/navigation";
 
 async function PortfolioDetailPage({
   params,
 }: {
-  params: Promise<{ id: number }>;
+  params: Promise<{ id: string }>;
 }) {
   const { id } = await params;
-  const projectIndex = id - 1;
+  const projectIndex = Number(id) - 1;
   const project = portfolioProjects[projectIndex];
+
+  if (!project) notFound();
 
   return (
     <section
