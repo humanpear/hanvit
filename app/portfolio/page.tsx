@@ -37,7 +37,7 @@ function PortfolioMain() {
         <p className="font-batang text-5xl font-bold">최근 프로젝트</p>
         <p>한빛인테리어가 완성한 공간을 공간 유형별로 확인해 보세요.</p>
       </div>
-      <div className="flex mx-auto gap-3">
+      <div className="flex mx-auto flex-wrap gap-3 justify-center">
         {spaceFilter.map((item) => (
             <button
               className={cn(

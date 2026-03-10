@@ -52,7 +52,7 @@ async function PortfolioDetailPage({
               <dt>면적</dt>
               <dd>{project.squareFeet}평형</dd>
               <dt className="border-none">시공 범위</dt>
-              <dd className="flex gap-2 border-none">
+              <dd className="flex gap-2 border-none flex-wrap">
                 {project.workType.map((item, index) => (
                   <span
                     className="rounded-4xl bg-wood-10 py-1 px-4"
