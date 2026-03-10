@@ -22,14 +22,15 @@ function PortfolioCard({ projects }: { projects: PortfolioProject[] }) {
             className="relative w-full h-fit border rounded-2xl shadow-lg overflow-hidden transition-shadow duration-500 hover:shadow-2xl"
           >
             <Link href={`/portfolio/${items.id}`}>
+            <div className="relative rounded-t-2xl h-[35vh] overflow-hidden">
             <Image
               src={items.photos[0]}
               alt="사진"
-              width={300}
-              height={200}
+              fill
               unoptimized
-              className="rounded-t-2xl object-contain w-fit h-80 transition-transform duration-500 hover:scale-105"
+              className="w-fit object-cover transition-transform duration-500 hover:scale-105"
             />
+            </div>
             <div className="flex flex-col p-5 gap-1">
               <p className="font-bold">{items.title}</p>
               <p className="text-sm">

@@ -13,7 +13,6 @@ async function PortfolioDetailPage({
   const { id } = await params;
   const projectIndex = id - 1;
   const project = portfolioProjects[projectIndex];
-  
 
   return (
     <section
@@ -28,11 +27,11 @@ async function PortfolioDetailPage({
       <div className="w-full bg-white pb-10">
         <div className="flex mx-auto w-fit">
           <div className="flex flex-col px-10">
-            <Link href={'/portfolio'}>
-            <button className="flex w-fit items-center py-8 -ml-3 text-primary font-semibold cursor-pointer transition-all duration-75 hover:font-extrabold">
-              <ChevronLeft className="w-8" />
-              포트폴리오 목록
-            </button>
+            <Link href={"/portfolio"}>
+              <button className="flex w-fit items-center py-8 -ml-3 text-primary font-semibold cursor-pointer transition-all duration-75 hover:font-extrabold">
+                <ChevronLeft className="w-8" />
+                포트폴리오 목록
+              </button>
             </Link>
             <dl
               className="grid grid-cols-[90px_1fr] h-fit
@@ -61,9 +60,11 @@ async function PortfolioDetailPage({
                 ))}
               </dd>
             </dl>
-            <Button variant="ROUNDED" className="w-80 mt-12 hover:bg-primary">
-              견적 문의하기
-            </Button>
+            <Link href={"/#estimate"}>
+              <Button variant="ROUNDED" className="w-80 mt-12 hover:bg-primary">
+                견적 문의하기
+              </Button>
+            </Link>
           </div>
           <PortfolioDetailGallary photos={project.photos} />
         </div>

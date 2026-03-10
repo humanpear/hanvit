@@ -59,7 +59,7 @@ function PortfolioMain() {
             </button>          
         ))}
       </div>
-      <div className="w-full bg-white">
+      <div className="w-full bg-white px-20">
         <PortfolioCard projects={projects} />
       </div>
     </section>
