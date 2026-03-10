@@ -9,3 +9,7 @@ export const spaceFilter = [
 ] as const
 
 export type SpaceFilterId = (typeof spaceFilter)[number]['id']
+
+export const LABEL_BY_ID: Record<SpaceFilterId, string> = Object.fromEntries(
+    spaceFilter.map((x) => [x.id, x.label]),
+  ) as Record<SpaceFilterId, string>;
