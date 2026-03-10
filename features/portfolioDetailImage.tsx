@@ -41,6 +41,7 @@ function PortfolioDetailImage({
       <div
         role="dialog"
         aria-modal="true"
+        aria-label="포트폴리오 이미지 상세 보기"
         className="flex w-full h-full justify-between items-center p-5"
       >
         <button
@@ -48,6 +49,7 @@ function PortfolioDetailImage({
             e.stopPropagation();
             onClose();
           }}
+          aria-label="이미지 닫기"
           className="fixed top-5 right-5 text-white cursor-pointer"
         >
           <X className="h-8 w-8" />
@@ -57,6 +59,7 @@ function PortfolioDetailImage({
             e.stopPropagation();
             setSelectedImage((prev) => prev - 1);
           }}
+          aria-label="이전 이미지"
           disabled={selectedImage === 0}
           className="cursor-pointer disabled:text-primary text-white transition-all duration-75"
         >
@@ -65,7 +68,7 @@ function PortfolioDetailImage({
         <div className="relative flex-1 h-[80vh]">
           <Image
             src={photos[selectedImage]}
-            alt="이미지"
+            alt={`${selectedImage+1}번째 이미지`}
             unoptimized
             fill
             className="object-contain"
@@ -77,6 +80,7 @@ function PortfolioDetailImage({
             e.stopPropagation();
             setSelectedImage((prev) => prev + 1);
           }}
+          aria-label="다음 이미지"
           disabled={selectedImage === photos.length - 1}
           className="cursor-pointer disabled:text-primary text-white transition-all duration-75"
         >
