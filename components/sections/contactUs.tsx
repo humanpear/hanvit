@@ -57,7 +57,7 @@ function ContactUs() {
                 <div className="flex gap-2 items-center">
                   <Image
                     src="/images/naver.svg"
-                    alt="네이버"
+                    alt=""
                     width={24}
                     height={24}
                   />
@@ -71,7 +71,7 @@ function ContactUs() {
                 <div className="flex gap-2 items-center">
                   <Image
                     src="/images/instagram.webp"
-                    alt="인스타그램"
+                    alt=""
                     width={24}
                     height={24}
                   />

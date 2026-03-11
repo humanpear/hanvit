@@ -55,7 +55,7 @@ function Header() {
   };
 
   return (
-    <header className="fixed top-0 left-0 z-50 w-full px-4 md:px-10">
+    <header className="fixed top-0 left-0 z-10 w-full px-4 md:px-10">
       <div className="mx-auto flex w-full items-start justify-between">
         <Image
           className="w-25 cursor-pointer object-contain pt-5 transition-all duration-300 md:w-37.5 md:pt-8"
@@ -66,7 +66,7 @@ function Header() {
           style={{opacity: logoOpacity}}
           onClick={() => router.push("/")}
         />
-          <div className="z-100 hidden gap-4 md:flex">
+          <div className="z-20 hidden gap-4 md:flex">
             <ul className="relative flex flex-col items-end gap-3 pt-8 font-bold">
               {NAVIGATION_ITEMS.map((item, index) => (
                 <li

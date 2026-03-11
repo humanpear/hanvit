@@ -42,7 +42,7 @@ function Home() {
         <Image
           className="h-auto w-full max-w-lg md:max-w-xl"
           src="/images/main.png"
-          alt="mainImg"
+          alt=""
           height={500}
           width={550}
         />
