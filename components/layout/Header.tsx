@@ -56,7 +56,7 @@ function Header() {
 
   return (
     <header className="fixed top-0 left-0 z-50 w-full px-4 md:px-10">
-      <div className="mx-auto flex w-full max-w-7xl items-start justify-between">
+      <div className="mx-auto flex w-full items-start justify-between">
         <Image
           className="w-25 cursor-pointer object-contain pt-5 transition-all duration-300 md:w-37.5 md:pt-8"
           src="/images/logo.svg"
