@@ -1,3 +1,4 @@
+import KakaoMaps from "@/features/kakaoMaps";
 import Image from "next/image";
 
 function ContactUs() {
@@ -9,9 +10,9 @@ function ContactUs() {
           <p className="font-batang text-5xl font-bold">문의 및 오시는 길</p>
           <p>궁금하신 점이 있다면 언제든 편하게 연락주세요.</p>
         </div>
-        <div className="flex gap-4 justify-center">
+        <div className="flex gap-8 justify-center">
           <div className="flex flex-col gap-4">
-            <div className="flex flex-col gap-2 rounded-2xl bg-white p-6 w-100 shadow-lg">
+            <div className="flex flex-col gap-2 rounded-2xl border-2 border-black/2 bg-white p-6 w-100 shadow-lg">
               <div className="flex flex-col gap-2 border-b-wood-20 border-b-2 pb-4">
                 <div className="flex gap-2 items-center">
                   <Image
@@ -44,7 +45,7 @@ function ContactUs() {
                 </div>
               </div>
             </div>
-            <div className="flex flex-col gap-4 rounded-2xl bg-white p-6 w-100 shadow-lg">
+            <div className="flex flex-col gap-4 rounded-2xl border-2 border-black/2 bg-white px-6 py-8 w-100 shadow-lg">
               <div className="flex gap-2 items-center">
                 <Image
                   src="/images/naver.svg"
@@ -65,8 +66,8 @@ function ContactUs() {
               </div>
             </div>
           </div>
-          <div className="bg-white p-4 rounded-2xl">
-            <div className="bg-primary rounded-2xl w-100 h-80"></div>
+          <div className="rounded-2xl w-120 h-80 border-2 border-black/2 overflow-hidden shadow-2xl p-3">
+            <KakaoMaps />
           </div>
         </div>
       </div>
