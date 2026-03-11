@@ -125,12 +125,15 @@
 }
 
 @layer base {
+  html {
+    scroll-behavior: smooth;
+  }
   body {
-    @apply font-sans text-primary bg-wood-10;    
+    @apply font-sans text-primary bg-wood-10 select-none;    
   }
   * {
     @apply border-border outline-ring/50;
-  }
+  }  
 }
 
 :root {

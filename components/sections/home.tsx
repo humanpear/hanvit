@@ -5,7 +5,7 @@ import Image from "next/image";
 
 function Home() {
   const handleClick = () => {
-    const element = document.getElementById("contactUs");
+    const element = document.getElementById("estimate");
     if (!element) return;
     element.scrollIntoView({ behavior: "smooth" });
   };

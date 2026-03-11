@@ -1,4 +1,6 @@
-type ButtonVariant = "ROUNDED" | "SQUARE" | "ESTIMATE" | "WORKTYPE";
+import { twMerge } from "tailwind-merge";
+
+type ButtonVariant = "ROUNDED" | "SQUARE" | "ESTIMATE" ;
 
 interface Props extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   variant?: ButtonVariant;
@@ -19,8 +21,6 @@ function Button({
         return "w-full h-[50px] bg-wood-30 text-white rounded-lg";
       case "ESTIMATE":
         return "w-40 h-full bg-primary text-white";
-      case "WORKTYPE":
-        return "w-full h-10 bg-white border border-primary";
       default:
         return "";
     }
@@ -28,7 +28,11 @@ function Button({
 
   return (
     <button
-      className={`cursor-pointer hover:font-semibold transition-all ${variantStyles()} ${className}`}
+      className={twMerge(
+        "cursor-pointer hover:font-semibold transition-all",
+        variantStyles(),
+        className,
+      )}
       {...rest}
     >
       {children}

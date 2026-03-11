@@ -25,7 +25,7 @@ function PortfolioSlider() {
         {slides.map((items, index) => (
           <SwiperSlide key={items.id} className="w-auto! p-3">
             <Image
-              className="block h-full w-auto max-w-none object-cover hover:scale-105 overflow-visible transition-all cursor-pointer"
+              className="block h-full w-auto max-w-none object-cover hover:scale-105 overflow-visible transition-all"
               height={400}
               width={200}
               unoptimized

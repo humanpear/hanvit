@@ -10,13 +10,13 @@ export type EstimateForm =
     workType: string[]
   }
 
-export const ErrorFiledLabel = {
+export const EstimateMap = {
   name: "고객명",
   phone: "연락처",
   address: "주소",
   detailAddress: "상세 주소",
   spaceType: "공간 유형",
-  squareFeet: "평형",
+  squareFeet: "면적",
   workType: "시공 범위",
   contents: "문의 내용",
 }
