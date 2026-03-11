@@ -3,15 +3,21 @@ import Image from 'next/image'
 function About() {
   return (
     <section id="about">
-      <div className="py-40 bg-white">
-        <div className="flex justify-center items-center gap-11 bg-white rounded-t-4xl h-125">
-          <Image src="/images/about.png" alt="aboutImg" height={320} width={620}/>
-          <div className="flex flex-col gap-8">
+      <div className="bg-white py-16 md:py-40">
+        <div className="mx-auto flex w-full max-w-7xl flex-col-reverse items-center gap-10 rounded-t-4xl bg-white px-4 sm:px-6 md:flex-row md:gap-11">
+          <Image
+            className="h-auto w-full max-w-2xl pl-5 pr-2 sm:px-5"
+            src="/images/about.png"
+            alt="aboutImg"
+            height={320}
+            width={620}
+          />
+          <div className="flex max-w-xl flex-col gap-6 md:gap-8">
             <p className="text-wood-30 font-bold">회사 소개</p>
-            <p className="font-batang text-5xl font-bold">
+            <p className="font-batang text-3xl font-bold sm:text-4xl md:text-5xl">
               공간에 숨결을 불어넣다
             </p>
-            <div className="flex flex-col gap-5">
+            <div className="flex flex-col gap-4 text-sm leading-relaxed sm:gap-5 sm:text-base">
               <p>
                 “한빛”이라는 이름은 삶을 비추는 하나의 빛에서 시작되었습니다.
               </p>
@@ -33,7 +39,7 @@ function About() {
         </div>
       </div>
     </section>
-  )
+  );
 }
 
-export default About
+export default About;

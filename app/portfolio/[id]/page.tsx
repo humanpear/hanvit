@@ -20,16 +20,16 @@ async function PortfolioDetailPage({
   return (
     <section
       id="portfolioDetail"
-      className="flex flex-col gap-7 w-screen pt-10"
+      className="flex w-full flex-col gap-7 pt-20 md:pt-24"
     >
-      <div className="flex flex-col gap-5 mx-auto items-center pb-5">
+      <div className="mx-auto flex w-full max-w-7xl flex-col items-center gap-4 pb-5 text-center md:gap-5">
         <p className="text-wood-30 font-bold">포트폴리오</p>
-        <p className="font-batang text-5xl font-bold">{project.title}</p>
-        <p>{project.description} </p>
+        <p className="font-batang text-3xl font-bold sm:text-4xl md:text-5xl">{project.title}</p>
+        <p className="text-sm leading-relaxed px-4 md:px-8 sm:text-base">{project.description} </p>
       </div>
-      <div className="w-full bg-white pb-10">
-        <div className="flex mx-auto w-fit">
-          <div className="flex flex-col px-10">
+      <div className="w-full bg-white pb-10 px-4 md:px-8">
+        <div className="mx-auto flex w-full max-w-7xl flex-col gap-8 lg:flex-row">
+          <div className="flex flex-col px-4 md:px-6">
             <Link href={"/portfolio"}>
               <button className="flex w-fit items-center py-8 -ml-3 text-primary font-semibold cursor-pointer transition-all duration-75 hover:font-extrabold">
                 <ChevronLeft className="w-8" />
@@ -64,7 +64,7 @@ async function PortfolioDetailPage({
               </dd>
             </dl>
             <Link href={"/#estimate"}>
-              <Button variant="ROUNDED" className="w-80 mt-12 hover:bg-primary">
+              <Button variant="ROUNDED" className="mt-12 w-full max-w-80 hover:bg-primary">
                 견적 문의하기
               </Button>
             </Link>

@@ -14,7 +14,7 @@ function PortfolioDetailGallary({ photos }: { photos: string[] }) {
   }
 
   return (
-    <div className="pt-6 columns-1 sm:columns-2 lg:columns-4 gap-3">
+    <div className="pt-6 columns-2 lg:columns-4 gap-3">
       {photos.map((item, index) => (
         <div
           key={index}

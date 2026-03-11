@@ -7,13 +7,13 @@ function PortfolioCard({ projects }: { projects: PortfolioProject[] }) {
   
   if (!projects.length) {
     return (
-      <div className="min-h-200 py-40 text-center text-lg font-semibold">
+      <div className="min-h-[50vh] py-20 text-center text-lg font-semibold">
         아직 보여드릴 프로젝트가 없어요 🥹
       </div>
     );
   }
   return (
-    <div className="min-h-200 grid grid-cols-4 gap-5 p-10">
+    <div className="grid min-h-[50vh] grid-cols-1 gap-5 p-4 sm:grid-cols-2 sm:p-6 lg:grid-cols-3 xl:grid-cols-4 md:p-10">
       {projects.map((items) => {
         const label = LABEL_BY_ID[items.spaceType as keyof typeof LABEL_BY_ID];
         return (
@@ -22,7 +22,7 @@ function PortfolioCard({ projects }: { projects: PortfolioProject[] }) {
             className="relative w-full h-fit border rounded-2xl shadow-lg overflow-hidden transition-shadow duration-500 hover:shadow-2xl"
           >
             <Link href={`/portfolio/${items.id}`}>
-            <div className="relative rounded-t-2xl h-[35vh] overflow-hidden">
+            <div className="relative h-56 overflow-hidden rounded-t-2xl sm:h-64 lg:h-[35vh]">
             <Image
               src={items.photos[0]}
               alt="사진"

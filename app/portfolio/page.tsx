@@ -31,17 +31,17 @@ function PortfolioMain() {
         });
 
   return (
-    <section id="portfolio" className="flex flex-col gap-7 w-screen pt-10">
-      <div className="flex flex-col gap-5 mx-auto items-center">
+    <section id="portfolio" className="flex w-full flex-col gap-7 pt-20 md:pt-24">
+      <div className="mx-auto flex w-full max-w-7xl flex-col items-center gap-4 text-center md:gap-5">
         <p className="text-wood-30 font-bold">포트폴리오</p>
-        <p className="font-batang text-5xl font-bold">최근 프로젝트</p>
-        <p>한빛인테리어가 완성한 공간을 공간 유형별로 확인해 보세요.</p>
+        <p className="font-batang text-3xl font-bold sm:text-4xl md:text-5xl">최근 프로젝트</p>
+        <p className="text-sm leading-relaxed sm:text-base">한빛인테리어가 완성한 공간을 공간 유형별로 확인해 보세요.</p>
       </div>
-      <div className="flex mx-auto flex-wrap gap-3 justify-center">
+      <div className="mx-auto flex w-full max-w-7xl px-4 flex-wrap justify-center gap-2 md:px-8 sm:gap-3">
         {spaceFilter.map((item) => (
             <button
               className={cn(
-                "flex h-10 rounded-4xl px-4 gap-2 bg-wood-20 font-semibold items-center hover:bg-[#d3c6c2] duration-300",
+                "flex h-8 text-sm md:text-base md:h-10 rounded-4xl px-4 gap-2 bg-wood-20 font-semibold items-center hover:bg-[#d3c6c2] duration-300",
                 selectedTag === item.id && "bg-primary text-white hover:bg-primary",
               )}
               key={item.id}
@@ -59,7 +59,7 @@ function PortfolioMain() {
             </button>          
         ))}
       </div>
-      <div className="w-full bg-white px-20">
+      <div className="w-full bg-white px-0 sm:px-2 md:px-6 lg:px-12">
         <PortfolioCard projects={projects} />
       </div>
     </section>
