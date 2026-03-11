@@ -12,15 +12,15 @@ function Home() {
 
   return (
     <section id="home">
-      <div className="flex justify-center items-center pt-20 pb-40 gap-8">
-        <div className="flex flex-col gap-11">
-          <div className="flex flex-col">
-            <div className="text-6xl font-batang font-bold">자연을 담은</div>
-            <div className="text-6xl font-batang font-bold italic text-wood-30">
+      <div className="mx-auto flex w-full max-w-7xl flex-col items-center gap-10 px-4 pb-24 pt-24 sm:px-6 md:flex-row md:justify-between md:gap-8 md:px-12 md:pb-40 md:pt-30 lg:px-20">
+        <div className="flex w-full max-w-xl flex-col gap-8 md:gap-11">
+          <div className="flex flex-col items-center md:items-start">
+            <div className="font-batang text-4xl font-bold pr-4 sm:text-6xl">자연을 담은</div>
+            <div className="font-batang text-4xl font-bold pl-4 italic text-wood-30 sm:text-6xl">
               따뜻한 공간
             </div>
           </div>
-          <div className="flex flex-col gap-5">
+          <div className="flex flex-col gap-4 text-sm leading-relaxed sm:gap-5 sm:text-base">
             <p>
               한빛인테리어는 공간에 따뜻한 빛을 담아, 삶을 밝히는 새로운 시작을
               제안합니다.
@@ -35,9 +35,17 @@ function Home() {
               빛처럼 맑고 따뜻하게, 세련된 감각으로 당신의 일상을 디자인합니다.
             </p>
           </div>
-          <Button onClick={() => handleClick()}>무료 견적 받아보기</Button>
+          <div className="flex w-full justify-center md:justify-start text-sm sm:text-base">
+            <Button onClick={() => handleClick()}>무료 견적 받아보기</Button>
+          </div>
         </div>
-        <Image src="/images/main.png" alt="mainImg" height={500} width={550} />
+        <Image
+          className="h-auto w-full max-w-lg md:max-w-xl"
+          src="/images/main.png"
+          alt="mainImg"
+          height={500}
+          width={550}
+        />
       </div>
     </section>
   );

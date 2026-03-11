@@ -129,7 +129,10 @@
     scroll-behavior: smooth;
   }
   body {
-    @apply font-sans text-primary bg-wood-10 select-none;    
+    @apply font-sans text-primary bg-wood-10 select-none overflow-x-hidden;
+  }
+  section {
+    scroll-margin-top: 5rem;
   }
   * {
     @apply border-border outline-ring/50;

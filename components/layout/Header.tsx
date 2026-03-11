@@ -8,14 +8,28 @@ import {
 import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import { useScrollSpy } from "@/hooks/useScrollSpy";
-import { usePathname, useRouter } from "next/navigation";
+import { useRouter } from "next/navigation";
 
 function Header() {
   const [menuTop, setMenuTop] = useState(0);
+  const [scrollTop, setScrollTop] = useState(0);
   const menuRefs = useRef<(HTMLElement | null)[]>([]);
-  const pathname = usePathname();
   const activeSection = useScrollSpy(SECTION_IDS);
   const router = useRouter();
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrollTop(window.scrollY);
+    };
+    window.addEventListener("scroll", handleScroll);
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
+
+  const logoOpacity = Math.max(0, 1-scrollTop/100)
+
 
   //현재 활성화된 섹션의 인덱스를 찾아서 활성화된 메뉴의 높이를 찾는 코드
   useEffect(() => {
@@ -41,19 +55,19 @@ function Header() {
   };
 
   return (
-    <header className="flex w-full mt-8 mx-12">
-      <div className="flex w-full justify-between">
+    <header className="fixed top-0 left-0 z-50 w-full px-4 md:px-10">
+      <div className="mx-auto flex w-full max-w-7xl items-start justify-between">
         <Image
-          className="w-37.5 object-cover cursor-pointer"
+          className="w-25 cursor-pointer object-contain pt-5 transition-all duration-300 md:w-37.5 md:pt-8"
           src="/images/logo.svg"
           alt="Hanvit logo"
           width={150}
           height={60}
+          style={{opacity: logoOpacity}}
           onClick={() => router.push("/")}
         />
-        {pathname === "/" ? (
-          <div className="flex fixed top-0 right-12 gap-4 z-100">
-            <ul className="relative gap-3 pt-8 flex flex-col items-end font-bold">
+          <div className="z-100 hidden gap-4 md:flex">
+            <ul className="relative flex flex-col items-end gap-3 pt-8 font-bold">
               {NAVIGATION_ITEMS.map((item, index) => (
                 <li
                   key={item.id}
@@ -84,9 +98,6 @@ function Header() {
               />
             </div>
           </div>
-        ) : (
-          <div className="fixed flex right-8 top-8 font-semibold"></div>
-        )}
       </div>
     </header>
   );

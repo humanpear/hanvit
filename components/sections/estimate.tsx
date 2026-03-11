@@ -94,23 +94,23 @@ function Estimate() {
   return (
     <section id="estimate">
       <form
-        className="flex bg-wood-20 py-20"
+        className="bg-wood-20 py-15 md:py-20"
         onSubmit={handleSubmit(onValid, onInValid)}
       >
-        <div className="flex flex-col gap-12 bg-white rounded-[60px] w-auto mx-auto p-10 shadow-2xl">
-          <div className="flex flex-col pt-5 pl-20 gap-4">
+        <div className="mx-auto flex w-full max-w-7xl flex-col gap-6 rounded-[32px] bg-white p-4 shadow-2xl sm:p-6 md:gap-12 md:rounded-[60px] md:p-10">
+          <div className="flex flex-col gap-3 px-2 pt-2 md:gap-4 md:pl-20 md:pt-5">
             <p className="text-wood-30 font-bold">견적 문의</p>
-            <p className="font-batang text-5xl font-bold">견적 문의하기</p>
+            <p className="font-batang text-3xl font-bold sm:text-5xl md:text-5xl">견적 문의하기</p>
           </div>
-          <div className="flex gap-10">
+          <div className="flex flex-col gap-8 md:flex-row md:gap-10">
             <Image
-              className="rounded-[60px] h-175 shadow-2xl"
+              className="h-64 w-full rounded-[28px] object-cover shadow-lg sm:h-80 md:h-175 md:w-140 md:rounded-[60px] md:shadow-2xl"
               src="/images/contact.jpg"
               alt="contactUsImg"
               width={560}
               height={700}
             />
-            <div className="flex flex-col bg-white gap-4 w-140 h-175">
+            <div className="flex w-full flex-col gap-4 bg-white md:h-175">
               <div className="flex gap-4">
                 <div className="flex flex-col w-full gap-2">
                   <label className="flex gap-1 font-bold">
@@ -150,6 +150,7 @@ function Estimate() {
                     type="button"
                     onClick={handleSearchAddress}
                     variant={"ESTIMATE"}
+                    className="h-10"
                   >
                     주소 검색
                   </Button>
@@ -189,7 +190,7 @@ function Estimate() {
                     시공예정 항목을 모두 선택해주세요
                   </p>
                 </label>
-                <div className="grid grid-cols-4 gap-1">
+                <div className="grid grid-cols-2 gap-1 sm:grid-cols-4">
                   {WorkType.map((item) => (
                     <label key={item.id} className="cursor-pointer">
                       <input
