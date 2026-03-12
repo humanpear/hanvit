@@ -8,7 +8,7 @@ import {
 import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import { useScrollSpy } from "@/hooks/useScrollSpy";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 
 function Header() {
   const [menuTop, setMenuTop] = useState(0);
@@ -16,6 +16,7 @@ function Header() {
   const menuRefs = useRef<(HTMLElement | null)[]>([]);
   const activeSection = useScrollSpy(SECTION_IDS);
   const router = useRouter();
+  const pathname = usePathname();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -67,6 +68,7 @@ function Header() {
           style={{opacity: logoOpacity}}
           onClick={() => router.push("/")}
         />
+        {pathname === "/" ? (
           <div className="z-20 hidden gap-4 md:flex">
             <ul className="relative flex flex-col items-end gap-3 pt-8 font-bold">
               {NAVIGATION_ITEMS.map((item, index) => (
@@ -99,6 +101,9 @@ function Header() {
               />
             </div>
           </div>
+           ) : (
+          <div className="fixed flex right-8 top-8 font-semibold"></div>
+        )}
       </div>
     </header>
   );
