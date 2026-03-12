@@ -9,7 +9,7 @@ async function Portfolio() {
   return (
     <section
       id="portfolio"
-      className="flex w-full flex-col gap-7 py-12 md:py-20"
+      className="flex w-full flex-col gap-7 py-10 md:py-20"
     >
       <div className="mx-auto flex w-full max-w-7xl flex-col gap-4 px-4 sm:px-6 md:gap-7">
         <p className="text-wood-30 font-bold">포트폴리오</p>
@@ -17,7 +17,7 @@ async function Portfolio() {
           최근 프로젝트
         </p>
       </div>
-      <div className="w-full py-6 md:py-10">
+      <div className="w-full py-0 md:py-10">
         <PortfolioSlider slides={slides}/>
       </div>
       <div className="flex justify-center">

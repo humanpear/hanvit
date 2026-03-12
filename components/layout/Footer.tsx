@@ -1,13 +1,21 @@
+'use client'
+
 import Image from "next/image";
 import Link from "next/link";
 
 function Footer() {
+  const handleClick = () => {
+    const element = document.getElementById("home");
+    if (!element) return;
+    element.scrollIntoView({ behavior: "smooth" });
+  };
+
   return (
     <footer className="w-full bg-white pt-4">
       <div className="bg-wood-10 min-h-50 w-full rounded-t-[40px] px-4 pt-8 shadow-[0px_-10px_15px_-3px_rgba(0,0,0,0.1)] sm:px-6 md:rounded-t-[60px] md:px-10 md:pt-15">
         <div className="flex gap-4 border-b border-gray-400 pb-6 items-end justify-between">
           <div className="w-25 md:w-37.5">
-            <Link href={"/#home"}>
+            <button onClick={() =>handleClick()} className="cursor-pointer">
               <Image
                 className="object-cover"
                 src="/images/logo.svg"
@@ -15,7 +23,7 @@ function Footer() {
                 width={150}
                 height={40}
               />
-            </Link>
+            </button>
           </div>
           <div className="flex gap-2">
             <Link

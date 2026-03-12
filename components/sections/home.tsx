@@ -12,7 +12,7 @@ function Home() {
 
   return (
     <section id="home">
-      <div className="mx-auto flex w-full max-w-7xl flex-col items-center gap-10 px-4 pb-24 pt-24 sm:px-6 md:flex-row md:justify-between md:gap-8 md:px-12 md:pb-40 md:pt-30 lg:px-20">
+      <div className="mx-auto flex w-full max-w-7xl flex-col items-center gap-10 px-4 pb-14 pt-24 sm:px-6 md:flex-row md:justify-between md:gap-8 md:px-12 md:pb-40 md:pt-30 lg:px-20">
         <div className="flex w-full max-w-xl flex-col gap-8 md:gap-11">
           <div className="flex flex-col items-center md:items-start">
             <div className="font-batang text-4xl font-bold pr-4 sm:text-6xl">자연을 담은</div>

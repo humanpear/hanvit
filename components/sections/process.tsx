@@ -3,7 +3,7 @@ import Image from "next/image";
 function Process() {
   return (
     <section id="process">
-      <div className="px-4 py-16 sm:px-6 md:py-20">
+      <div className="px-4 py-10 sm:px-6 md:py-20">
         <div className="mx-auto flex w-full max-w-7xl flex-col items-center justify-center gap-8 rounded-4xl bg-white px-4 py-8 sm:px-8 md:gap-10 md:py-12">
           <div className="flex flex-col gap-3 items-center">
             <p className="text-wood-30 font-bold">이용 안내</p>
