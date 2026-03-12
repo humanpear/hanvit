@@ -1,6 +1,6 @@
 export type SlideItem = {
-  id?: string;
-  created_at?: Date;
+  id: string;
+  created_at?: string;
   imageUrl: string;
 };
 

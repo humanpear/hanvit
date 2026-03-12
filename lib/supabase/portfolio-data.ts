@@ -5,7 +5,7 @@ export type PortfolioProject = {
   id: number;
   title: string;
   constructionDate: string; // "YYYY-MM"
-  registeredDate: Date; // "YYYY-MM-DD"
+  registeredDate: string; // "YYYY-MM-DD"
   spaceType: string;
   squareFeet: string;
   workType: string[];
