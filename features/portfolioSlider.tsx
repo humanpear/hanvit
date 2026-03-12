@@ -1,13 +1,13 @@
-"use client";
+'use client'
 
 import { Autoplay, FreeMode } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/pagination";
-import { slides } from "@/lib/portfolio";
 import Image from "next/image";
+import { SlideItem } from "@/types/slider";
 
-function PortfolioSlider() {
+function PortfolioSlider({slides}:{slides:SlideItem[]}) {
   return (
     <div className="relative">
       <Swiper

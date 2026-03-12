@@ -1,10 +1,10 @@
-import { portfolioProjects } from "@/lib/portfolio-data";
 import PortfolioDetailGallary from "@/features/portfolioDetailGallary";
 import Button from "@/components/ui/button";
 import { LABEL_BY_ID } from "@/types/portfolio";
 import { ChevronLeft } from "lucide-react";
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import {  getPortfolioProjectId } from "@/lib/supabase/portfolio-data";
 
 async function PortfolioDetailPage({
   params,
@@ -12,8 +12,8 @@ async function PortfolioDetailPage({
   params: Promise<{ id: string }>;
 }) {
   const { id } = await params;
-  const projectIndex = Number(id) - 1;
-  const project = portfolioProjects[projectIndex];
+  const project = await getPortfolioProjectId(id)
+  const registeredDate = project?.registeredDate ? new Date(project?.registeredDate).toLocaleDateString('sv-SE') : ''
 
   if (!project) notFound();
 
@@ -44,7 +44,7 @@ async function PortfolioDetailPage({
               <dt>공사 기간</dt>
               <dd>{project.constructionDate}</dd>
               <dt>등록일</dt>
-              <dd>{project.registeredDate}</dd>
+              <dd>{registeredDate}</dd>
               <dt>공간 유형</dt>
               <dd>
                 {LABEL_BY_ID[project.spaceType as keyof typeof LABEL_BY_ID]}

@@ -10,12 +10,35 @@ import { SubmitErrorHandler, useForm } from "react-hook-form";
 import Dropdown from "../ui/dropdown";
 import { EstimateMap, EstimateForm, WorkType } from "@/types/estimate";
 import { toast } from "sonner";
+import { createClient } from "@/lib/supabase/client";
 
 function Estimate() {
+  const supabase = createClient();
   const { register, handleSubmit, setValue } = useForm<EstimateForm>();
 
-  const onValid = (data: EstimateForm) => {
-    console.log("최종 제출 데이터 : ", data);
+  const onValid = async (formData: EstimateForm) => {
+    const { data, error } = await supabase
+      .from("estimate")
+      .insert([
+        {
+          name: formData.name,
+          phone: formData.phone,
+          address: formData.address,
+          detailAddress: formData.detailAddress,
+          spaceType: formData.spaceType,
+          squareFeet: formData.squareFeet,
+          contents: formData.contents,
+          workType: formData.workType,
+        },
+      ])
+
+    if (error) {
+      console.log("전송 실패:", error.message);
+      toast.error("제출 중 오류가 발생했습니다.", {position: "top-center"})
+    } else {
+      console.log("제출 성공", data)
+      toast.success("견적 요청이 완료되었습니다! 👍", {position: "top-center"});
+    }
   };
 
   //썼다가 지웠을때도 순서대로 나오게 하고싶은데..
@@ -100,7 +123,9 @@ function Estimate() {
         <div className="mx-auto flex w-full max-w-7xl flex-col gap-6 rounded-[32px] bg-white p-4 shadow-2xl sm:p-6 md:gap-12 md:rounded-[60px] md:p-10">
           <div className="flex flex-col gap-3 px-2 pt-2 md:gap-4 md:pl-20 md:pt-5">
             <p className="text-wood-30 font-bold">견적 문의</p>
-            <p className="font-batang text-3xl font-bold sm:text-5xl md:text-5xl">견적 문의하기</p>
+            <p className="font-batang text-3xl font-bold sm:text-5xl md:text-5xl">
+              견적 문의하기
+            </p>
           </div>
           <div className="flex flex-col gap-8 md:flex-row md:gap-10">
             <Image
