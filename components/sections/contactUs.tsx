@@ -5,7 +5,7 @@ import Link from "next/link";
 function ContactUs() {
   return (
     <section id="contactUs">
-      <div className="flex flex-col gap-8 bg-white px-4 py-16 sm:px-6 md:py-20">
+      <div className="flex flex-col gap-8 bg-white px-4 py-14 sm:px-6 md:py-20">
         <div className="flex flex-col items-center gap-4 text-center">
           <p className="text-wood-30 font-bold">업체 안내</p>
           <p className="font-batang text-3xl font-bold sm:text-4xl md:text-5xl">

@@ -117,7 +117,7 @@ function Estimate() {
   return (
     <section id="estimate">
       <form
-        className="bg-wood-20 py-15 md:py-20"
+        className="bg-wood-20 py-10 pb-15 md:py-20"
         onSubmit={handleSubmit(onValid, onInValid)}
       >
         <div className="mx-auto flex w-full max-w-7xl flex-col gap-6 rounded-[32px] bg-white p-4 shadow-2xl sm:p-6 md:gap-12 md:rounded-[60px] md:p-10">
@@ -135,7 +135,7 @@ function Estimate() {
               width={560}
               height={700}
             />
-            <div className="flex w-full flex-col gap-4 bg-white md:h-175">
+            <div className="flex w-full flex-col gap-4 bg-white text-sm md:text-base md:h-175">
               <div className="flex gap-4">
                 <div className="flex flex-col w-full gap-2">
                   <label className="flex gap-1 font-bold">
@@ -156,7 +156,7 @@ function Estimate() {
                       required: true,
                       onChange: handlePhoneChange,
                     })}
-                    placeholder="연락받을 전화번호를 적어주세요"
+                    placeholder="휴대폰 번호를 적어주세요"
                     id="phone"
                   />
                 </div>

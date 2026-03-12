@@ -125,9 +125,6 @@
 }
 
 @layer base {
-  html {
-    scroll-behavior: smooth;
-  }
   body {
     @apply font-sans text-primary bg-wood-10 select-none overflow-x-hidden;
   }
