@@ -186,7 +186,6 @@ function Estimate() {
                   id="detailAddress"
                 />
               </div>
-
               <div className="flex gap-4">
                 <div className="flex flex-col w-full gap-2">
                   <label className="flex gap-1 font-bold">
