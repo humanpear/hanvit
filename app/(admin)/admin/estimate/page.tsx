@@ -1,6 +1,6 @@
 import { columns } from "@/components/admin/columns";
 import { DataTable } from "@/components/admin/data-table";
-import { getAdminEstimate } from "@/lib/supabase/admin-data";
+import { getAdminEstimate } from "@/lib/supabase/estimate-data";
 import { SPACETYPE_BY_ID, Status, WORKTYPE_BY_ID } from "@/types/estimate";
 
 async function AdminEstimate() {

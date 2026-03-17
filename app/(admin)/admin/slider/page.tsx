@@ -1,7 +1,17 @@
-function AdminSlider () {
+import FileUpload from "@/components/admin/fileUpload";
+import { getPortfolioSlider } from "@/lib/supabase/slider/server";
+
+async function AdminSlider() {
+  const slides = await getPortfolioSlider();
+
   return (
-    <>슬라이더</>
-  )
+    <div className="flex flex-col grow gap-8 pt-10">
+      <span className="container mx-auto font-semibold text-3xl">
+        슬라이드 이미지 관리
+      </span>
+      <FileUpload slides={slides} />
+    </div>
+  );
 }
 
-export default AdminSlider
+export default AdminSlider;

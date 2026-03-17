@@ -1,4 +1,4 @@
-import Button from "@/components/ui/cutsomButton";
+import Button from "@/components/ui/button";
 import PortfolioDetailGallary from "@/features/portfolioDetailGallary";
 import { getPortfolioProjectId } from "@/lib/supabase/portfolio-data";
 import { LABEL_BY_ID } from "@/types/portfolio";

@@ -30,7 +30,7 @@ import {
   SelectValue,
 } from "../ui/admin/select";
 import TableContents from "./table-contents";
-import { AdminEstimate } from "@/lib/supabase/admin-data";
+import { AdminEstimate } from "@/lib/supabase/estimate-data";
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];

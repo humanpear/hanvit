@@ -1,4 +1,3 @@
-import { SlideItem } from "@/types/slider";
 import { createClient } from "./server";
 
 export type PortfolioProject = {
@@ -39,15 +38,3 @@ export async function getPortfolioProjectId(id: string): Promise<PortfolioProjec
   return data as PortfolioProject
 }
 
-export async function getPortfolioSlide(): Promise<SlideItem[]> {
-  const supabase = await createClient()
-
-  const { data, error } = await supabase.from("slideItem").select("*")
-
-  if (error) {
-    console.error('이미지 수신 실패:', error)
-    return []
-  }
-
-  return data as SlideItem[]
-}
