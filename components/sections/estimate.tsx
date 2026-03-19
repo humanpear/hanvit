@@ -227,7 +227,7 @@ function Estimate() {
                         className="sr-only peer"
                       />
                       <span
-                        className="flex h-10 items-center justify-center border border-[#7B7B7B] bg-white text-black
+                        className="flex h-10 items-center justify-center border border-[#7B7B7B] bg-white
                      peer-checked:bg-primary peer-checked:text-white peer-checked:border-primary transition-all peer-hover:font-semibold"
                       >
                         {item.label}

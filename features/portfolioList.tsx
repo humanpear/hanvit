@@ -4,7 +4,7 @@ import { spaceFilter } from "@/types/portfolio";
 import PortfolioCard from "@/features/portfolioCard";
 import { useMemo, useState } from "react";
 import { cn } from "@/lib/utils";
-import { PortfolioProject } from "@/lib/supabase/portfolio-data";
+import { PortfolioProject } from "@/lib/supabase/portfolio/server";
 
 function PortfolioMain({
   portfolioProjects,

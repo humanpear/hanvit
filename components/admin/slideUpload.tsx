@@ -17,7 +17,7 @@ interface Props {
   slides: SlideItem[];
 }
 
-function FileUpload({ slides }: Props) {
+function SlideUpload({ slides }: Props) {
   const fileInputRef = useRef<HTMLInputElement | null>(null);
   const [changeSlides, setChangeSlides] = useState(slides);
   const [dragIndex, setDragIndex] = useState<number | null>(null);
@@ -124,8 +124,8 @@ function FileUpload({ slides }: Props) {
           >
             <Image
               src={item.imageUrl}
-              width={300}
-              height={300}
+              width={1000}
+              height={1000}
               unoptimized
               alt="@thumbnail"
               className="object-cover"
@@ -170,4 +170,4 @@ function FileUpload({ slides }: Props) {
   );
 }
 
-export default FileUpload;
+export default SlideUpload;

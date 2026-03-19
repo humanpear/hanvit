@@ -1,4 +1,4 @@
-import FileUpload from "@/components/admin/fileUpload";
+import SlideUpload from "@/components/admin/slideUpload";
 import { getPortfolioSlider } from "@/lib/supabase/slider/server";
 
 async function AdminSlider() {
@@ -9,7 +9,7 @@ async function AdminSlider() {
       <span className="container mx-auto font-semibold text-3xl">
         슬라이드 이미지 관리
       </span>
-      <FileUpload slides={slides} />
+      <SlideUpload slides={slides} />
     </div>
   );
 }

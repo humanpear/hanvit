@@ -1,5 +1,5 @@
-import { columns } from "@/components/admin/columns";
-import { DataTable } from "@/components/admin/data-table";
+import { columns } from "@/components/admin/estimateColumns";
+import { DataTable } from "@/components/admin/estimateTable";
 import { getAdminEstimate } from "@/lib/supabase/estimate-data";
 import { SPACETYPE_BY_ID, Status, WORKTYPE_BY_ID } from "@/types/estimate";
 

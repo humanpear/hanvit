@@ -1,6 +1,6 @@
 import Button from "@/components/ui/button";
 import PortfolioDetailGallary from "@/features/portfolioDetailGallary";
-import { getPortfolioProjectId } from "@/lib/supabase/portfolio-data";
+import { getPortfolioProjectId } from "@/lib/supabase/portfolio/server";
 import { LABEL_BY_ID } from "@/types/portfolio";
 import { ChevronLeft } from "lucide-react";
 import Link from "next/link";
@@ -18,6 +18,7 @@ async function PortfolioDetailPage({
     : "";
 
   if (!project) notFound();
+  console.log(project)
 
   return (
     <section
