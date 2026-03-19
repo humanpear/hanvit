@@ -13,7 +13,7 @@ async function AdminEstimate() {
     workType: items.workType.map(
       (items) => WORKTYPE_BY_ID[items as keyof typeof WORKTYPE_BY_ID],
     ),
-    status: Status[items.status as Status]
+    status: (items.status && Status[items.status as keyof typeof Status]) ?? "진행 예정"
   }));
 
   return (

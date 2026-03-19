@@ -18,7 +18,6 @@ async function PortfolioDetailPage({
     : "";
 
   if (!project) notFound();
-  console.log(project)
 
   return (
     <section
@@ -37,11 +36,12 @@ async function PortfolioDetailPage({
       <div className="w-full bg-white px-4 pb-10 md:px-8">
         <div className="mx-auto flex w-full max-w-7xl flex-col gap-8 lg:flex-row">
           <div className="flex flex-col px-4 md:px-6">
-            <Link href={"/portfolio"}>
-              <button className="-ml-3 flex w-fit cursor-pointer items-center py-8 font-semibold text-primary transition-all duration-75 hover:font-extrabold">
-                <ChevronLeft className="w-8" />
-                포트폴리오 목록
-              </button>
+            <Link
+              href="/portfolio"
+              className="-ml-3 flex w-fit items-center py-8 font-semibold text-primary transition-all duration-75 hover:font-extrabold"
+            >
+              <ChevronLeft className="w-8" />
+              포트폴리오 목록
             </Link>
             <dl
               className="grid h-fit grid-cols-[90px_1fr]

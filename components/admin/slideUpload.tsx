@@ -24,6 +24,7 @@ function SlideUpload({ slides }: Props) {
 
   console.log(changeSlides);
 
+  //이거 눈속임으로 만들어놓은 toast라 나중에 수정해야함
   const handleChangeFile = async (
     event: React.ChangeEvent<HTMLInputElement>,
   ) => {
@@ -57,6 +58,7 @@ function SlideUpload({ slides }: Props) {
     }
   };
 
+  //여기 토스트도 수정
   const handleSubmit = async () => {
     await updateAdminSliderChange(changeSlides);
     toast.promise<{ name: string }>(

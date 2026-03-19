@@ -8,7 +8,7 @@ export default function AdminLayout({
   return (
     <div className="flex min-h-screen bg-white">
       <Sidebar />
-      <main className="grow p-8 ml-65">{children}</main>
+      <main className="grow p-8 ml-60">{children}</main>
     </div>
   );
 }
