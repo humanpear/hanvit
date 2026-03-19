@@ -13,3 +13,15 @@ export type SpaceFilterId = (typeof spaceFilter)[number]['id']
 export const LABEL_BY_ID: Record<SpaceFilterId, string> = Object.fromEntries(
     spaceFilter.map((x) => [x.id, x.label]),
   ) as Record<SpaceFilterId, string>;
+
+export const PortfolioMap = {
+  id: "아이디",
+  title: "제목",
+  constructionDate: "공사 기간",
+  registeredDate: "작성 일자",
+  spaceType: "공간 유형",
+  squareFeet: "면적",
+  workType: "시공 범위",
+  description: "설명",
+  photos: "이미지"
+}

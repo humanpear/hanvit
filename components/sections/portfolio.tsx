@@ -1,10 +1,10 @@
 import PortfolioSlider from "@/features/portfolioSlider";
 import Button from "../ui/button";
 import Link from "next/link";
-import { getPortfolioSlide } from "@/lib/supabase/portfolio-data";
+import { getPortfolioSlider } from "@/lib/supabase/slider/server";
 
 async function Portfolio() {
-  const slides = await getPortfolioSlide()
+  const slides = await getPortfolioSlider()
 
   return (
     <section

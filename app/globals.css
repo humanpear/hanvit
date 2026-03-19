@@ -128,6 +128,10 @@
   body {
     @apply font-sans text-primary bg-wood-10 select-none overflow-x-hidden;
   }
+  .admin {
+    @apply bg-white
+
+  }
   section {
     scroll-margin-top: 5rem;
   }

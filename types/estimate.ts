@@ -32,6 +32,10 @@ export const WorkType = [
   { id: "other", label: "기타" },
 ] as const;
 
+export const WORKTYPE_BY_ID: Record<(typeof WorkType)[number]['id'], string> = Object.fromEntries(
+  WorkType.map((x) => [x.id, x.label]),
+) as Record<(typeof WorkType)[number]['id'], string>
+
 export const SpaceType = [
   { id: "apartment", label: "아파트" },
   { id: "villa", label: "빌라" },
@@ -40,3 +44,14 @@ export const SpaceType = [
   { id: "temporary_structure", label: "가건물" },
   { id: "other", label: "기타" },
 ] as const;
+
+export const SPACETYPE_BY_ID: Record<(typeof SpaceType)[number]['id'], string> = Object.fromEntries(
+  SpaceType.map((x) => [x.id, x.label]),
+) as Record<(typeof SpaceType)[number]['id'], string>
+
+export const Status = {
+  pending: "진행 예정",
+  finished: "완료됨",
+} as const;
+
+export type Status = "pending" | "finished";

@@ -2,6 +2,8 @@ export type SlideItem = {
   id: string;
   created_at?: string;
   imageUrl: string;
+  imagePath: string;
+  displayOrder: number;
 };
 
 export type InfiniteSliderProps = {
