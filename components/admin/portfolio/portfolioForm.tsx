@@ -32,9 +32,7 @@ function PortfolioForm() {
     register,
     handleSubmit,
     setValue,
-    setError,
     clearErrors,
-    formState: { errors },
   } = useForm<PortfolioProject>();
   const fileInputRef = useRef<HTMLInputElement | null>(null);
   const [uploadImage, setUploadImage] = useState<UploadPortfolioImage[]>([]);
