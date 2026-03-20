@@ -2,9 +2,9 @@ import { nanoid } from "nanoid";
 import { createClient } from "../client";
 
 export type UploadPortfolioImage = {
-  file: File
-  previewUrl: string
-  displayOrder: number
+  url: string;
+  file?: File;
+  isNew: boolean;
 }
 
 export async function insertAdminPortfolioImage(
@@ -16,6 +16,8 @@ export async function insertAdminPortfolioImage(
 
   return Promise.all(
     files.map(async (item) => {
+      if (!item.file) return item.url
+      
       const fileExt = item.file.name.split(".").pop();
       const fileName = fileExt ? `${nanoid()}.${fileExt}` : nanoid();
       const filePath = `portfolio/${fileName}`;

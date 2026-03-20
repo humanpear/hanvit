@@ -25,7 +25,6 @@ import { PortfolioProject } from "@/lib/supabase/portfolio/server";
 import { Button } from "../../ui/admin/button";
 import { useRouter } from "next/navigation";
 
-
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
   data: TData[];
@@ -37,7 +36,7 @@ export function DataTable<TData extends PortfolioProject, TValue>({
 }: DataTableProps<TData, TValue>) {
   const [globalFilter, setGlobalFilter] = useState();
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
-  const router = useRouter()
+  const router = useRouter();
 
   const table = useReactTable({
     data,
@@ -62,7 +61,13 @@ export function DataTable<TData extends PortfolioProject, TValue>({
           onChange={(e) => table.setGlobalFilter(String(e.target.value))}
           className="max-w-sm"
         />
-        <Button variant={'outline'} onClick={() => router.push('/admin/portfolio/new')} className="cursor-pointer">새글쓰기</Button>
+        <Button
+          variant={"outline"}
+          onClick={() => router.push("/admin/portfolio/new")}
+          className="cursor-pointer"
+        >
+          새글쓰기
+        </Button>
       </div>
       <div className="overflow-hidden rounded-md border">
         <Table>
@@ -89,17 +94,18 @@ export function DataTable<TData extends PortfolioProject, TValue>({
               table.getRowModel().rows.map((row) => {
                 return (
                   <TableRow
+                    onClick={() => router.push(`/admin/portfolio/${row.original.id}`)}
                     key={row.id}
                     data-state={row.getIsSelected() && "selected"}
                     className="cursor-pointer"
                   >
                     {row.getVisibleCells().map((cell) => (
-                      <TableCell key={cell.id}>
-                        {flexRender(
-                          cell.column.columnDef.cell,
-                          cell.getContext(),
-                        )}
-                      </TableCell>
+                        <TableCell key={cell.id}>
+                          {flexRender(
+                            cell.column.columnDef.cell,
+                            cell.getContext(),
+                          )}
+                        </TableCell>
                     ))}
                   </TableRow>
                 );

@@ -133,11 +133,11 @@ function SlideUpload({ slides }: Props) {
               className="object-cover"
             />
             <div className="absolute flex z-10 top-0 left-0 w-full h-full justify-end p-4 items-start gap-10 bg-black/60 opacity-0 hover:opacity-100 transition-all duration-200">
-              <button className="cursor-pointer">
-                <Trash2
-                  className="text-white"
-                  onClick={() => handleDelete(item.id, index)}
-                />
+              <button
+                className="cursor-pointer"
+                onClick={() => handleDelete(item.id, index)}
+              >
+                <Trash2 className="text-white" />
               </button>
             </div>
           </div>

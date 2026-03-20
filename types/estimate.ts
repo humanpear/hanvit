@@ -32,6 +32,8 @@ export const WorkType = [
   { id: "other", label: "기타" },
 ] as const;
 
+export type WorkTypeKey = (typeof WorkType)[number]["id"]
+
 export const WORKTYPE_BY_ID: Record<(typeof WorkType)[number]['id'], string> = Object.fromEntries(
   WorkType.map((x) => [x.id, x.label]),
 ) as Record<(typeof WorkType)[number]['id'], string>
@@ -44,6 +46,8 @@ export const SpaceType = [
   { id: "temporary_structure", label: "가건물" },
   { id: "other", label: "기타" },
 ] as const;
+
+export type SpaceTypeKey = (typeof SpaceType)[number]["id"]
 
 export const SPACETYPE_BY_ID: Record<(typeof SpaceType)[number]['id'], string> = Object.fromEntries(
   SpaceType.map((x) => [x.id, x.label]),
