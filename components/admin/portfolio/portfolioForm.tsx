@@ -74,20 +74,9 @@ function PortfolioForm({
 
   const spanStyle = "min-w-22 py-2";
 
-  const handleChangeFile = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const file = event.target.files?.[0];
-    if (!file) return;
-
-    const newFile = { url: URL.createObjectURL(file), file: file, isNew: true };
-    setUploadImage((prev) => [...prev, newFile]);
-  };
-
-  console.log(mode);
-
   const onValid = async (formData: PortfolioProject) => {
     //file 이미지 path주소로 변경
     const result = await insertAdminPortfolioImage(uploadImage);
-    console.log(result);
     if (!result) return;
 
     const newData = {
@@ -149,6 +138,7 @@ function PortfolioForm({
     });
   };
 
+  //포트폴리오 삭제
   const handleDelete = async () => {
     if (!initialData) return;
     const isConfirmed = window.confirm("정말로 삭제하시겠습니까?");
@@ -162,11 +152,24 @@ function PortfolioForm({
       toast.success("성공적으로 삭제 됐습니다", {
         position: "top-center",
       });
-      router.push("/admin/portfolio")
+      router.push("/admin/portfolio");
     }
   };
 
-  //초기 이미지 값 세팅
+  //사진 추가
+  const handleChangeFile = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files;
+    if (!file) return;
+    const fileArray = Array.from(file);
+
+    const newFile = fileArray.map((item) => ({
+      url: URL.createObjectURL(item),
+      file: item,
+      isNew: true,
+    }));
+    
+    setUploadImage((prev) => [...prev, ...newFile]);
+  };
 
   //드래그로 이미지 순서 바꾸기
   const handleDrop = (dropIndex: number) => {
@@ -353,6 +356,7 @@ function PortfolioForm({
               ref={fileInputRef}
               className="hidden"
               onChange={handleChangeFile}
+              multiple
             />
           </div>
         </div>
