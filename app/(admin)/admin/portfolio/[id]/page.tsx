@@ -1,5 +1,6 @@
 import PortfolioDetail from "@/components/admin/portfolio/portfolioDetail";
 import { getPortfolioProjectId } from "@/lib/supabase/portfolio/server";
+import { notFound } from "next/navigation";
 
 async function AdminPortfolioDetail({
   params,
@@ -8,7 +9,7 @@ async function AdminPortfolioDetail({
 }) {
   const { id } = await params;
   const project = await getPortfolioProjectId(id);
-  if (!project) return;
+  if (!project) notFound();
 
 
   return (

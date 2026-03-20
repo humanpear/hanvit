@@ -31,7 +31,7 @@ export async function getPortfolioProject(): Promise<PortfolioProject[]> {
     ...project,
     registeredDate: format(project.registeredDate, "yyyy-MM-dd"),
     workType: project.workType.map((item: WorkTypeKey) => WORKTYPE_BY_ID[item] ?? item),
-    spaceType: SPACETYPE_BY_ID[project.spaceType as SpaceTypeKey]
+    spaceType: SPACETYPE_BY_ID[project.spaceType as SpaceTypeKey] ?? project.spaceType
   }))
 
   // 나중에 완성되면 사용할 path -> URL로 바꾸는 코드
@@ -60,7 +60,7 @@ export async function getPortfolioProjectId(id: string): Promise<PortfolioProjec
     ...data,
     registeredDate: format(data.registeredDate, "yyyy-MM-dd"),
     workType: data.workType.map((item: WorkTypeKey) => WORKTYPE_BY_ID[item] ?? item),
-    spaceType: SPACETYPE_BY_ID[data.spaceType as SpaceTypeKey]
+    spaceType: SPACETYPE_BY_ID[data.spaceType as SpaceTypeKey] ?? data.spaceType
   }
 
   // 나중에 완성되면 사용할 path -> URL로 바꾸는 코드
