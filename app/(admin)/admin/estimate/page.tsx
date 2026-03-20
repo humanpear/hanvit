@@ -1,14 +1,14 @@
 import { columns } from "@/components/admin/estimateColumns";
 import { DataTable } from "@/components/admin/estimateTable";
 import { getAdminEstimate } from "@/lib/supabase/estimate-data";
-import { SPACETYPE_BY_ID, Status, WORKTYPE_BY_ID } from "@/types/estimate";
+import { SPACETYPE_BY_ID, SpaceTypeKey, Status, WORKTYPE_BY_ID } from "@/types/estimate";
 
 async function AdminEstimate() {
   const data = await getAdminEstimate();
   const formatData = data.map((items) => ({
     ...items,
     address: items.address + " " + items.detailAddress,
-    spaceType: SPACETYPE_BY_ID[items.spaceType as keyof typeof SPACETYPE_BY_ID],
+    spaceType: SPACETYPE_BY_ID[items.spaceType as SpaceTypeKey],
     squareFeet: items.squareFeet + '평',
     workType: items.workType.map(
       (items) => WORKTYPE_BY_ID[items as keyof typeof WORKTYPE_BY_ID],

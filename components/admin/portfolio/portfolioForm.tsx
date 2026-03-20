@@ -4,13 +4,15 @@ import { Button } from "@/components/ui/admin/button";
 import { Input } from "@/components/ui/admin/input";
 import Dropdown from "@/components/ui/dropdown";
 import {
+  deleteAdminPortfolio,
   insertAdminPortfolio,
   PortfolioProject,
+  updateAdminPortfolio,
 } from "@/lib/supabase/portfolio/server";
 import { SubmitErrorHandler, useForm } from "react-hook-form";
 import { CalendarIcon, ImagePlusIcon, Trash2 } from "lucide-react";
 import Image from "next/image";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import {
   insertAdminPortfolioImage,
   UploadPortfolioImage,
@@ -26,35 +28,64 @@ import { cn } from "@/lib/utils";
 import { format } from "date-fns/format";
 import { PortfolioMap } from "@/types/portfolio";
 import { toast } from "sonner";
+import { useRouter } from "next/navigation";
 
-function PortfolioForm() {
-  const {
-    register,
-    handleSubmit,
-    setValue,
-    clearErrors,
-  } = useForm<PortfolioProject>();
+function PortfolioForm({
+  mode,
+  initialData,
+}: {
+  mode: "new" | "edit";
+  initialData?: PortfolioProject;
+}) {
+  const { register, handleSubmit, setValue, clearErrors, watch } =
+    useForm<PortfolioProject>({
+      defaultValues: initialData ?? {
+        title: "",
+        constructionDate: "",
+        spaceType: "",
+        squareFeet: "",
+        workType: [],
+        description: "",
+        photos: [],
+      },
+    });
   const fileInputRef = useRef<HTMLInputElement | null>(null);
-  const [uploadImage, setUploadImage] = useState<UploadPortfolioImage[]>([]);
+  const [uploadImage, setUploadImage] = useState<UploadPortfolioImage[]>(
+    initialData?.photos.map((item) => ({ url: item, isNew: false })) || [],
+  );
   const [dragIndex, setDragIndex] = useState<number | null>(null);
-  const [date, setDate] = useState<Date>();
+  const [isOpen, setIsOpen] = useState(false);
+  const constructionDateValue = watch("constructionDate");
+  const router = useRouter();
+
+  const selectedDate = constructionDateValue
+    ? new Date(`${constructionDateValue}-01`)
+    : undefined;
+
+  const handleSelectMonth = (selectedMonth: Date) => {
+    setValue("constructionDate", format(selectedMonth, "yyyy-MM"), {
+      shouldValidate: true,
+      shouldDirty: true,
+    });
+
+    clearErrors("constructionDate");
+    setIsOpen(false);
+  };
 
   const spanStyle = "min-w-22 py-2";
 
   const handleChangeFile = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
     if (!file) return;
-    setUploadImage((prev) => [
-      ...prev,
-      {
-        file,
-        previewUrl: URL.createObjectURL(file),
-        displayOrder: prev.length,
-      },
-    ]);
+
+    const newFile = { url: URL.createObjectURL(file), file: file, isNew: true };
+    setUploadImage((prev) => [...prev, newFile]);
   };
 
+  console.log(mode);
+
   const onValid = async (formData: PortfolioProject) => {
+    //file 이미지 path주소로 변경
     const result = await insertAdminPortfolioImage(uploadImage);
     console.log(result);
     if (!result) return;
@@ -64,9 +95,34 @@ function PortfolioForm() {
       photos: result,
     };
 
-    const finalResult = await insertAdminPortfolio(newData);
-    if (finalResult.success) {
-      toast.success("성공적으로 등록 됐습니다 👍", { position: "top-center" });
+    if (mode === "new") {
+      const finalResult = await insertAdminPortfolio(newData);
+      if (finalResult.success) {
+        toast.success("성공적으로 등록 됐습니다 👍", {
+          position: "top-center",
+        });
+        setTimeout(() => {
+          router.push("/admin/portfolio");
+        }, 1000);
+      } else {
+        toast.error("제출에 실패 했습니다.", {
+          position: "top-center",
+        });
+      }
+    } else if (mode === "edit") {
+      const finalResult = await updateAdminPortfolio(newData);
+      if (finalResult.success) {
+        toast.success("성공적으로 수정 됐습니다 👍", {
+          position: "top-center",
+        });
+        setTimeout(() => {
+          router.push("/admin/portfolio");
+        }, 1000);
+      } else {
+        toast.error("제출에 실패 했습니다.", {
+          position: "top-center",
+        });
+      }
     }
   };
 
@@ -93,22 +149,28 @@ function PortfolioForm() {
     });
   };
 
-  //날짜 선택 RHF에 등록시키기
-  const handleSelectMonth = (selectedMonth: Date) => {
-    setDate(selectedMonth);
-
-    setValue("constructionDate", format(selectedMonth, "yyyy-MM"), {
-      shouldValidate: true,
-      shouldDirty: true,
-    });
-
-    clearErrors("constructionDate");
+  const handleDelete = async () => {
+    if (!initialData) return;
+    const isConfirmed = window.confirm("정말로 삭제하시겠습니까?");
+    if (!isConfirmed) return;
+    const result = await deleteAdminPortfolio(initialData.id);
+    if (!result) {
+      toast.error("삭제에 실패 했습니다.", {
+        position: "top-center",
+      });
+    } else {
+      toast.success("성공적으로 삭제 됐습니다", {
+        position: "top-center",
+      });
+      router.push("/admin/portfolio")
+    }
   };
+
+  //초기 이미지 값 세팅
 
   //드래그로 이미지 순서 바꾸기
   const handleDrop = (dropIndex: number) => {
-    if (dragIndex === null) return;
-    if (dragIndex === dropIndex) return;
+    if (dragIndex === null || dragIndex === dropIndex) return;
 
     const newSlides = [...uploadImage];
 
@@ -119,16 +181,12 @@ function PortfolioForm() {
     //dropIndex부터 0개를 제거하고 draggedItem을 추가
     newSlides.splice(dropIndex, 0, draggedItem);
 
-    const finalSlides = newSlides.map((item, index) => {
-      return { ...item, displayOrder: index };
-    });
-
-    setUploadImage(finalSlides);
+    setUploadImage(newSlides);
     setDragIndex(null);
   };
 
   //사진 삭제
-  const handleDelete = (index: number) => {
+  const handleImageDelete = (index: number) => {
     const newUploadImage = [...uploadImage];
     const filteredImage = newUploadImage.filter((_, i) => i !== index);
     setUploadImage(filteredImage);
@@ -146,28 +204,26 @@ function PortfolioForm() {
         </div>
         <div className="flex">
           <span className={spanStyle}>공사 기간</span>
-          <Popover>
+          <Popover open={isOpen} onOpenChange={setIsOpen}>
             <PopoverTrigger asChild>
               <Button
                 type="button"
                 variant={"outline"}
                 className={cn(
                   "w-45 justify-start text-left font-normal",
-                  !date && "text-muted-foreground",
+                  !constructionDateValue && "text-muted-foreground",
                 )}
               >
                 <CalendarIcon className="mr-2 h-4 w-4" />
-                {date ? (
-                  format(date, "yyyy-MM")
-                ) : (
-                  <span>날짜를 선택하세요</span>
-                )}
+                {constructionDateValue
+                  ? constructionDateValue
+                  : "날짜를 선택하세요"}
               </Button>
             </PopoverTrigger>
             <PopoverContent className="ml-32 p-0">
               <MonthPicker
                 onMonthSelect={handleSelectMonth}
-                selectedMonth={date}
+                selectedMonth={selectedDate}
               />
             </PopoverContent>
           </Popover>
@@ -226,13 +282,24 @@ function PortfolioForm() {
             className="w-full h-50 border rounded-md shadow-xs px-3 py-2 resize-none"
           />
         </div>
-        <Button
-          type="submit"
-          variant={"default"}
-          className="w-50 mx-auto cursor-pointer"
-        >
-          저장하기
-        </Button>
+        {mode === "new" ? (
+          <Button type="submit" className="mt-10 w-50 mx-auto cursor-pointer">
+            저장하기
+          </Button>
+        ) : (
+          <div className="pt-10 mx-auto space-x-4">
+            <Button type="submit" className="w-30 cursor-pointer">
+              수정하기
+            </Button>
+            <Button
+              type="button"
+              className="w-30 cursor-pointer hover:bg-red-300 bg-red-400"
+              onClick={handleDelete}
+            >
+              삭제하기
+            </Button>
+          </div>
+        )}
       </div>
       <div className="border rounded-lg p-5">
         <span className={spanStyle}>사진</span>
@@ -250,7 +317,7 @@ function PortfolioForm() {
               >
                 {uploadImage.length > 0 && (
                   <Image
-                    src={item.previewUrl}
+                    src={item.url}
                     width={1000}
                     height={1000}
                     unoptimized
@@ -262,7 +329,7 @@ function PortfolioForm() {
                   <button
                     type="button"
                     className="cursor-pointer"
-                    onClick={() => handleDelete(index)}
+                    onClick={() => handleImageDelete(index)}
                   >
                     <Trash2 className="text-white" />
                   </button>

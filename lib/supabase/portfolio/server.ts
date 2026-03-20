@@ -3,6 +3,8 @@
 import { revalidatePath } from "next/cache";
 import { createClient } from "../server";
 import { redirect } from "next/navigation";
+import { format } from "date-fns";
+import { SpaceType, SPACETYPE_BY_ID, SpaceTypeKey, WorkType, WORKTYPE_BY_ID, WorkTypeKey } from "@/types/estimate";
 
 export type PortfolioProject = {
   id: number;
@@ -19,12 +21,19 @@ export type PortfolioProject = {
 export async function getPortfolioProject(): Promise<PortfolioProject[]> {
   const supabase = await createClient()
 
-  const { data, error } = await supabase.from("portfolio").select('*').order('constructionDate', { ascending: false }) // 공사일자 최신순으로 정렬, ascending - 오름차순
+  const { data, error } = await supabase.from("portfolio").select('*').order('id', { ascending: true }) // 공사일자 최신순으로 정렬, ascending - 오름차순
 
   if (error) {
     console.error('데이터 수신 실패: ', error)
     return []
   }
+
+  const newData = data.map((project) => ({
+    ...project,
+    registeredDate: format(project.registeredDate, "yyyy-MM-dd"),
+    workType: project.workType.map((item: WorkTypeKey) => WORKTYPE_BY_ID[item] ?? item),
+    spaceType: SPACETYPE_BY_ID[project.spaceType as SpaceTypeKey]
+  }))
 
   // 나중에 완성되면 사용할 path -> URL로 바꾸는 코드
   // return data.map((project) => ({
@@ -35,10 +44,43 @@ export async function getPortfolioProject(): Promise<PortfolioProject[]> {
   //   })
   // })
   // ) as PortfolioProject[]
-  return data as PortfolioProject[]
+  return newData as PortfolioProject[]
 }
 
 export async function getPortfolioProjectId(id: string): Promise<PortfolioProject | null> {
+  const supabase = await createClient()
+
+  const { data, error } = await supabase.from("portfolio").select("*").eq("id", id).single();
+
+  if (error) {
+    console.error('데이터 수신 실패: ', error)
+    return null;
+  }
+
+  const newData = {
+    ...data,
+    registeredDate: format(data.registeredDate, "yyyy-MM-dd"),
+    workType: data.workType.map((item: WorkTypeKey) => WORKTYPE_BY_ID[item] ?? item),
+    spaceType: SPACETYPE_BY_ID[data.spaceType as SpaceTypeKey]
+  }
+
+  // 나중에 완성되면 사용할 path -> URL로 바꾸는 코드
+  // const imageUrl = data.photos.map((imagePath: string) => {
+  //   const { data: urlData } = supabase.storage.from("portfolio").getPublicUrl(imagePath);
+  //   return urlData.publicUrl
+  // })
+
+  // const newData = {
+  //   ...data,
+  //   photos: imageUrl
+  // }
+
+  // return newData as PortfolioProject
+  return newData as PortfolioProject
+}
+
+//목록 수정용 호출
+export async function getPortfolioEditId(id: string): Promise<PortfolioProject | null> {
   const supabase = await createClient()
 
   const { data, error } = await supabase.from("portfolio").select("*").eq("id", id).single();
@@ -82,9 +124,53 @@ export async function insertAdminPortfolio(formData: PortfolioProject) {
 
   if (error) {
     console.log("전송 실패:", error.message);
+    return { success: false, error: error.message }
   }
-  revalidatePath("/admin/portfolio")
-  redirect("/admin/portfolio")
+  revalidatePath("/admin/portfolio")  
   console.log("제출 성공", data)
   return { success: true, data }
+}
+
+export async function updateAdminPortfolio(formData: PortfolioProject) {
+  const supabase = await createClient()
+
+  const { data, error } = await supabase.from("portfolio")
+    .upsert([
+      {
+        id: formData.id,
+        title: formData.title,
+        constructionDate: formData.constructionDate,
+        spaceType: formData.spaceType,
+        squareFeet: formData.squareFeet,
+        workType: formData.workType,
+        description: formData.description,
+        photos: formData.photos,
+      }])
+    .select();
+
+  if (error) {
+    console.error("수정 실패:", error.message);
+    return { success: false, error: error.message };
+  }
+
+  console.log("수정 성공");
+  revalidatePath("/admin/portfolio");
+  return {success: true, data}
+}
+
+export async function deleteAdminPortfolio(id: number) {
+  const supabase = await createClient()
+
+  const { error } = await supabase
+    .from("portfolio")
+    .delete()
+    .eq("id", id);
+
+  if (error) {
+    console.error("삭제 실패:", error);
+    return false;
+  }
+
+  revalidatePath("/admin/portfolio");
+  return true;
 }
