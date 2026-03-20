@@ -130,11 +130,7 @@
   }
   .admin {
     @apply bg-white
-
-  }
-  section {
-    scroll-margin-top: 5rem;
-  }
+  } 
   * {
     @apply border-border outline-ring/50;
   }  
