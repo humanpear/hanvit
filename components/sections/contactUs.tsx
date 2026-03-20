@@ -15,7 +15,7 @@ function ContactUs() {
             궁금하신 점이 있다면 언제든 편하게 연락주세요.
           </p>
         </div>
-        <div className="mx-auto flex w-full max-w-7xl flex-col gap-6 md:flex-row md:items-stretch md:justify-center md:gap-8">
+        <div className="mx-auto flex w-full max-w-7xl flex-col gap-6 md:flex-row md:items-stretch md:justify-center md:gap-8 select-text">
           <div className="flex w-full max-w-xl flex-col gap-4">
             <div className="flex w-full text-sm sm:text-base flex-col gap-2 rounded-2xl border-2 border-black/2 bg-white p-6 shadow-lg">
               <div className="flex flex-col gap-2 border-b-wood-20 border-b-2 pb-4">
