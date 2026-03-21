@@ -67,7 +67,7 @@ export async function getPortfolioProjectId(id: string): Promise<PortfolioProjec
   return newData as PortfolioProject
 }
 
-//목록 수정용 호출
+//포트폴리오 수정용 호출(변환되지 않은 데이터로 받는 용도)
 export async function getPortfolioEditId(id: string): Promise<PortfolioProject | null> {
   const supabase = await createClient()
 
@@ -79,18 +79,17 @@ export async function getPortfolioEditId(id: string): Promise<PortfolioProject |
   }
 
   // 나중에 완성되면 사용할 path -> URL로 바꾸는 코드
-  // const imageUrl = data.photos.map((imagePath: string) => {
-  //   const { data: urlData } = supabase.storage.from("portfolio").getPublicUrl(imagePath);
-  //   return urlData.publicUrl
-  // })
+  const imageUrl = data.photos.map((imagePath: string) => {
+    const { data: urlData } = supabase.storage.from("portfolio").getPublicUrl(imagePath);
+    return urlData.publicUrl
+  })
 
-  // const newData = {
-  //   ...data,
-  //   photos: imageUrl
-  // }
+  const newData = {
+    ...data,
+    photos: imageUrl
+  }
 
-  // return newData as PortfolioProject
-  return data as PortfolioProject
+  return newData as PortfolioProject
 }
 
 export async function insertAdminPortfolio(formData: PortfolioProject) {
