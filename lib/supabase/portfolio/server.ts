@@ -31,18 +31,13 @@ export async function getPortfolioProject(): Promise<PortfolioProject[]> {
     ...project,
     registeredDate: format(project.registeredDate, "yyyy-MM-dd"),
     workType: project.workType.map((item: WorkTypeKey) => WORKTYPE_BY_ID[item] ?? item),
-    spaceType: SPACETYPE_BY_ID[project.spaceType as SpaceTypeKey]
+    spaceType: SPACETYPE_BY_ID[project.spaceType as SpaceTypeKey],
+    photos: project.photos.map((imagePath: string) => {
+      const { data } = supabase.storage.from("portfolio").getPublicUrl(imagePath);
+      const imageUrl = data.publicUrl
+      return imageUrl
+    })
   }))
-
-  // 나중에 완성되면 사용할 path -> URL로 바꾸는 코드
-  // return data.map((project) => ({
-  //   ...project, photos: project.photos.map((imagePath: string) => {
-  //     const { data } = supabase.storage.from("portfolio").getPublicUrl(imagePath);
-  //     const imageUrl = data.publicUrl
-  //     return imageUrl
-  //   })
-  // })
-  // ) as PortfolioProject[]
   return newData as PortfolioProject[]
 }
 
@@ -56,25 +51,19 @@ export async function getPortfolioProjectId(id: string): Promise<PortfolioProjec
     return null;
   }
 
+  const imageUrl = data.photos.map((imagePath: string) => {
+    const { data: urlData } = supabase.storage.from("portfolio").getPublicUrl(imagePath);
+    return urlData.publicUrl
+  })
+
   const newData = {
     ...data,
     registeredDate: format(data.registeredDate, "yyyy-MM-dd"),
     workType: data.workType.map((item: WorkTypeKey) => WORKTYPE_BY_ID[item] ?? item),
-    spaceType: SPACETYPE_BY_ID[data.spaceType as SpaceTypeKey]
+    spaceType: SPACETYPE_BY_ID[data.spaceType as SpaceTypeKey],
+    photos: imageUrl
   }
 
-  // 나중에 완성되면 사용할 path -> URL로 바꾸는 코드
-  // const imageUrl = data.photos.map((imagePath: string) => {
-  //   const { data: urlData } = supabase.storage.from("portfolio").getPublicUrl(imagePath);
-  //   return urlData.publicUrl
-  // })
-
-  // const newData = {
-  //   ...data,
-  //   photos: imageUrl
-  // }
-
-  // return newData as PortfolioProject
   return newData as PortfolioProject
 }
 
@@ -125,7 +114,7 @@ export async function insertAdminPortfolio(formData: PortfolioProject) {
     console.log("전송 실패:", error.message);
     return { success: false, error: error.message }
   }
-  revalidatePath("/admin/portfolio")  
+  revalidatePath("/admin/portfolio")
   console.log("제출 성공", data)
   return { success: true, data }
 }
@@ -154,7 +143,7 @@ export async function updateAdminPortfolio(formData: PortfolioProject) {
 
   console.log("수정 성공");
   revalidatePath("/admin/portfolio");
-  return {success: true, data}
+  return { success: true, data }
 }
 
 export async function deleteAdminPortfolio(id: number) {
