@@ -1,7 +1,6 @@
 import Button from "@/components/ui/button";
 import PortfolioDetailGallary from "@/features/portfolioDetailGallary";
 import { getPortfolioProjectId } from "@/lib/supabase/portfolio/server";
-import { LABEL_BY_ID } from "@/types/portfolio";
 import { ChevronLeft } from "lucide-react";
 import Link from "next/link";
 import { notFound } from "next/navigation";
@@ -54,7 +53,7 @@ async function PortfolioDetailPage({
               <dd>{registeredDate}</dd>
               <dt>공간 유형</dt>
               <dd>
-                {LABEL_BY_ID[project.spaceType as keyof typeof LABEL_BY_ID]}
+                {project.spaceType}
               </dd>
               <dt>면적</dt>
               <dd>{project.squareFeet}평</dd>

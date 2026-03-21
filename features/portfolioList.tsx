@@ -11,10 +11,10 @@ function PortfolioMain({
 }: {
   portfolioProjects: PortfolioProject[];
 }) {
-  const [selectedTag, setSelectedTag] = useState("all");
+  const [selectedTag, setSelectedTag] = useState("전체보기");
 
-  const onFilterHandler = (id: string) => {
-    setSelectedTag(id);
+  const onFilterHandler = (label: string) => {
+    setSelectedTag(label);
   };
 
   const countProjectTag = useMemo(() => {
@@ -23,13 +23,13 @@ function PortfolioMain({
         countMap[item.spaceType] = (countMap[item.spaceType] || 0) + 1;
         return countMap;
       },
-      { all: portfolioProjects.length },
+      { "전체보기": portfolioProjects.length },
     );
   }, [portfolioProjects]);
 
   //프로젝트 필터링
   const projects =
-    selectedTag === "all"
+    selectedTag === "전체보기"
       ? portfolioProjects
       : portfolioProjects.filter((project) => {
           return project.spaceType === selectedTag;
@@ -54,20 +54,20 @@ function PortfolioMain({
           <button
             className={cn(
               "flex h-8 text-sm md:text-base md:h-10 rounded-4xl px-4 gap-2 bg-wood-20 font-semibold items-center hover:bg-[#d3c6c2] duration-300",
-              selectedTag === item.id &&
+              selectedTag === item.label &&
                 "bg-primary text-white hover:bg-primary",
             )}
-            key={item.id}
-            onClick={() => onFilterHandler(item.id)}
+            key={item.label}
+            onClick={() => onFilterHandler(item.label)}
           >
             {item.label}
             <span
               className={cn(
                 "px-2 bg-white rounded-4xl pointer-events-none",
-                selectedTag === item.id && "bg-[#696969]",
+                selectedTag === item.label && "bg-[#696969]",
               )}
             >
-              {countProjectTag[item.id] ?? 0}
+              {countProjectTag[item.label] ?? 0}
             </span>
           </button>
         ))}

@@ -15,7 +15,6 @@ function PortfolioCard({ projects }: { projects: PortfolioProject[] }) {
   return (
     <div className="grid min-h-[50vh] grid-cols-1 gap-5 p-4 sm:grid-cols-2 sm:p-6 lg:grid-cols-3 xl:grid-cols-4 md:p-10">
       {projects.map((items) => {
-        const label = LABEL_BY_ID[items.spaceType as keyof typeof LABEL_BY_ID];
         return (
           <div
             key={items.id}
@@ -34,7 +33,7 @@ function PortfolioCard({ projects }: { projects: PortfolioProject[] }) {
             <div className="flex flex-col p-5 gap-1">
               <p className="font-bold">{items.title}</p>
               <p className="text-sm">
-                {label}ㆍ{items.squareFeet}평형ㆍ
+                {items.spaceType}ㆍ{items.squareFeet}평형ㆍ
                 {items.constructionDate}
               </p>
               <div className="flex gap-2 text-sm font-semibold py-1">
