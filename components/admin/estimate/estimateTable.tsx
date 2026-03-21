@@ -18,9 +18,9 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/admin/table";
-import { DataTablePagination } from "../ui/admin/table-pagination";
+import { DataTablePagination } from "../../ui/admin/table-pagination";
 import React, { useState } from "react";
-import { Input } from "../ui/admin/input";
+import { Input } from "../../ui/admin/input";
 import {
   Select,
   SelectContent,
@@ -28,9 +28,9 @@ import {
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "../ui/admin/select";
-import TableContents from "./table-contents";
-import { AdminEstimate } from "@/lib/supabase/estimate-data";
+} from "../../ui/admin/select";
+import TableContents from "../table-contents"; 
+import { AdminEstimate } from "@/lib/supabase/estimate/server";
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
@@ -134,7 +134,7 @@ export function DataTable<TData extends AdminEstimate, TValue>({
                     </TableRow>
                     {isOpen && (
                       <TableRow className="bg-primary/2">
-                        <TableCell colSpan={8} className="py-4">
+                        <TableCell colSpan={8} className="px-6 py-4">
                           <TableContents formData={row.original}/>
                         </TableCell>
                       </TableRow>

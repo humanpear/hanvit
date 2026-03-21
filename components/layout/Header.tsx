@@ -57,7 +57,7 @@ function Header() {
   };
 
   return (
-    <header className="fixed top-0 left-0 z-10 w-full px-4 md:px-10">
+    <header className="fixed top-0 left-0 z-10 w-full px-4 md:px-10 pointer-events-none">
       <div className="mx-auto flex w-full items-start justify-between">
         <Image
           className="w-25 cursor-pointer object-contain pt-5 transition-all duration-300 md:w-37.5 md:pt-8"
@@ -78,7 +78,7 @@ function Header() {
                     menuRefs.current[index] = el;
                   }}
                   onClick={() => handleClick(item.id)}
-                  className="flex gap-6 items-end"
+                  className="flex gap-6 items-end pointer-events-auto"
                 >
                   <span
                     className={

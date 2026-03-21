@@ -1,6 +1,6 @@
 "use client"
 
-import { AdminEstimate } from "@/lib/supabase/estimate-data"
+import { AdminEstimate } from "@/lib/supabase/estimate/server"
 import { ColumnDef } from "@tanstack/react-table"
 
 // This type is used to define the shape of our data.
@@ -14,7 +14,7 @@ export type Payment = {
 
 export const columns: ColumnDef<AdminEstimate>[] = [
   {
-    accessorKey: "id",
+    accessorKey: "index",
     header: "No",
   },
   {
