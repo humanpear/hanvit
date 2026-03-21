@@ -1,5 +1,4 @@
 import { PortfolioProject } from "@/lib/supabase/portfolio/server";
-import { LABEL_BY_ID } from "@/types/portfolio";
 import Image from "next/image";
 import Link from "next/link";
 

@@ -12,7 +12,7 @@ import {
 import { SubmitErrorHandler, useForm } from "react-hook-form";
 import { CalendarIcon, ImagePlusIcon, Trash2 } from "lucide-react";
 import Image from "next/image";
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import {
   insertAdminPortfolioImage,
   UploadPortfolioImage,
@@ -29,6 +29,7 @@ import { format } from "date-fns/format";
 import { PortfolioMap } from "@/types/portfolio";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
+import imageCompression from "browser-image-compression";
 
 function PortfolioForm({
   mode,
@@ -74,45 +75,66 @@ function PortfolioForm({
 
   const spanStyle = "min-w-22 py-2";
 
-  const onValid = async (formData: PortfolioProject) => {
-    //file 이미지 path주소로 변경
-    const result = await insertAdminPortfolioImage(uploadImage);
-    if (!result) return;
-
-    const newData = {
-      ...formData,
-      photos: result,
+  //이미지 최적화 코드
+  const compressedImage = async (uploadImage: UploadPortfolioImage[]) => {
+    const options = {
+      maxSizeMB: 1,
+      maxWidthOrHeight: 1920,
+      useWebWorker: true,
     };
 
-    if (mode === "new") {
-      const finalResult = await insertAdminPortfolio(newData);
-      if (finalResult.success) {
-        toast.success("성공적으로 등록 됐습니다 👍", {
-          position: "top-center",
-        });
-        setTimeout(() => {
-          router.push("/admin/portfolio");
-        }, 1000);
-      } else {
-        toast.error("제출에 실패 했습니다.", {
-          position: "top-center",
-        });
-      }
-    } else if (mode === "edit") {
-      const finalResult = await updateAdminPortfolio(newData);
-      if (finalResult.success) {
-        toast.success("성공적으로 수정 됐습니다 👍", {
-          position: "top-center",
-        });
-        setTimeout(() => {
-          router.push("/admin/portfolio");
-        }, 1000);
-      } else {
-        toast.error("제출에 실패 했습니다.", {
-          position: "top-center",
-        });
-      }
+    try {
+      const compressedResult = await Promise.all(
+        uploadImage.map(async (item) => {
+          if (!item.isNew || !item.file) return { ...item };
+
+          const compressedFile = await imageCompression(item.file, options);
+          return { ...item, file: compressedFile as File };
+        }),
+      );
+      return compressedResult;
+    } catch (error) {
+      console.error(error);
+      throw error;
     }
+  };
+
+  const onValid = async (formData: PortfolioProject) => {
+    const processSubmission = async () => {
+      // 이미지 압축
+      const compressedFile = await compressedImage(uploadImage);
+      if (!compressedFile) throw new Error("이미지 압축에 실패했습니다.");
+
+      // 이미지 업로드
+      const result = await insertAdminPortfolioImage(compressedFile);
+      if (!result) throw new Error("이미지 업로드에 실패했습니다.");
+
+      const newData = {
+        ...formData,
+        photos: result,
+      };
+
+      const finalResult =
+        mode === "new"
+          ? await insertAdminPortfolio(newData)
+          : await updateAdminPortfolio(newData);
+
+      if (!finalResult.success) {
+        throw new Error("서버 저장에 실패했습니다.");
+      }
+
+      return mode === "new" ? "등록" : "수정";
+    };
+
+    toast.promise(processSubmission(), {
+      loading: "이미지 최적화 중입니다...",
+      success: (action) => {
+        setTimeout(() => router.push("/admin/portfolio"), 1000);
+        return `성공적으로 ${action} 되었습니다 👍`;
+      },
+      error: (err) => err.message || "제출에 실패했습니다.",
+      position: "top-center"
+    },);
   };
 
   const onInValid: SubmitErrorHandler<PortfolioProject> = (errors) => {
@@ -167,7 +189,7 @@ function PortfolioForm({
       file: item,
       isNew: true,
     }));
-    
+
     setUploadImage((prev) => [...prev, ...newFile]);
   };
 
