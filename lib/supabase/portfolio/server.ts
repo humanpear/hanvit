@@ -27,8 +27,9 @@ export async function getPortfolioProject(): Promise<PortfolioProject[]> {
     return []
   }
 
-  const newData = data.map((project) => ({
+  const newData = data.map((project, index) => ({
     ...project,
+    index: index+1,
     registeredDate: format(project.registeredDate, "yyyy-MM-dd"),
     workType: project.workType.map((item: WorkTypeKey) => WORKTYPE_BY_ID[item] ?? item),
     spaceType: SPACETYPE_BY_ID[project.spaceType as SpaceTypeKey],
@@ -38,6 +39,7 @@ export async function getPortfolioProject(): Promise<PortfolioProject[]> {
       return imageUrl
     })
   }))
+  
   return newData as PortfolioProject[]
 }
 

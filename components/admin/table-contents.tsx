@@ -1,6 +1,6 @@
 import { useForm } from "react-hook-form";
 import { Button } from "../ui/admin/button";
-import { AdminEstimate, updateAdminEstimate } from "@/lib/supabase/estimate-data";
+import { AdminEstimate, updateAdminEstimate } from "@/lib/supabase/estimate/server";
 import { toast } from "sonner";
 
 function TableContents({ formData }: { formData: AdminEstimate }) {

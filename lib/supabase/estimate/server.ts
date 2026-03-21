@@ -1,7 +1,8 @@
 'use server'
 
 import { revalidatePath } from "next/cache"
-import { createClient } from "./server"
+import { createClient } from "../server"
+import { SPACETYPE_BY_ID, SpaceTypeKey, Status, WORKTYPE_BY_ID, WorkTypeKey } from "@/types/estimate"
 
 export type AdminEstimate = {
   id: number
@@ -28,7 +29,19 @@ export async function getAdminEstimate(): Promise<AdminEstimate[]> {
     return []
   }
 
-  return data as AdminEstimate[]
+  const newData = data.map((items, index) => ({
+      ...items,
+      index: index+1,
+      address: items.address + " " + items.detailAddress,
+      spaceType: SPACETYPE_BY_ID[items.spaceType as SpaceTypeKey],
+      squareFeet: items.squareFeet + '평',
+      workType: items.workType.map(
+        (items: WorkTypeKey) => WORKTYPE_BY_ID[items] ?? items
+      ),
+      status: (items.status && Status[items.status as keyof typeof Status]) ?? "진행 예정"
+    }));
+
+  return newData as AdminEstimate[]
 }
 
 export async function updateAdminEstimate(formData: AdminEstimate) {
