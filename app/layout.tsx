@@ -11,7 +11,7 @@ export const metadata: Metadata = {
     url: "https://hanvit-red.vercel.app/",
     images: [
       {
-        url: "https://hanvit-red.vercel.app/images/logo.svg",
+        url: "/images/metaLogo.svg",
         width: 1200,
         height: 630,
         alt: "한빛인테리어 로고"
