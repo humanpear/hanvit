@@ -7,7 +7,7 @@ import Process from "@/components/sections/process";
 
 export default function Main() {
   return (
-    <main className="flex flex-col select-none">
+    <main className="flex flex-col">
       <Home />
       <About />
       <Portfolio />

@@ -9,7 +9,7 @@ export default function SiteLayout({
   return (
     <>
       <Header />
-      {children}
+      <main className="select-none">{children}</main>
       <Footer />
     </>
   );
