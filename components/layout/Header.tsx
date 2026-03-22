@@ -22,16 +22,15 @@ function Header() {
     const handleScroll = () => {
       setScrollTop(window.scrollY);
     };
-    handleScroll()
-    window.addEventListener("scroll", handleScroll, );
+    handleScroll();
+    window.addEventListener("scroll", handleScroll);
 
     return () => {
       window.removeEventListener("scroll", handleScroll);
     };
   }, []);
 
-  const logoOpacity = Math.max(0, 1-scrollTop/100)
-
+  const logoOpacity = Math.max(0, 1 - scrollTop / 100);
 
   //현재 활성화된 섹션의 인덱스를 찾아서 활성화된 메뉴의 높이를 찾는 코드
   useEffect(() => {
@@ -59,15 +58,16 @@ function Header() {
   return (
     <header className="fixed top-0 left-0 z-10 w-full px-4 md:px-10 pointer-events-none">
       <div className="mx-auto flex w-full items-start justify-between">
-        <Image
-          className="w-25 cursor-pointer object-contain pt-5 transition-all duration-300 md:w-37.5 md:pt-8"
-          src="/images/logo.svg"
-          alt="Hanvit logo"
-          width={150}
-          height={60}
-          style={{opacity: logoOpacity}}
-          onClick={() => router.push("/")}
-        />
+        <button type="button" onClick={() => router.push("/")} className="cursor-pointer pointer-events-auto">
+          <Image
+            className="w-25 object-contain pt-5 transition-all duration-300 md:w-37.5 md:pt-8"
+            src="/images/logo.svg"
+            alt="Hanvit logo"
+            width={150}
+            height={60}
+            style={{ opacity: logoOpacity }}
+          />
+        </button>
         {pathname === "/" ? (
           <div className="z-20 hidden gap-4 md:flex">
             <ul className="relative flex flex-col items-end gap-3 pt-8 font-bold">
@@ -101,7 +101,7 @@ function Header() {
               />
             </div>
           </div>
-           ) : (
+        ) : (
           <div className="fixed flex right-8 top-8 font-semibold"></div>
         )}
       </div>

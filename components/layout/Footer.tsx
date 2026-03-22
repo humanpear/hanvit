@@ -1,21 +1,26 @@
-'use client'
+"use client";
 
 import Image from "next/image";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 function Footer() {
+  const router = useRouter();
   const handleClick = () => {
     const element = document.getElementById("home");
-    if (!element) return;
-    element.scrollIntoView({ behavior: "smooth" });
+    if (!element) {
+      router.push("/");
+    } else {
+      element.scrollIntoView({ behavior: "smooth" });
+    }
   };
 
   return (
     <footer className="w-full bg-white pt-4">
-      <div className="bg-wood-10 min-h-50 w-full rounded-t-[40px] px-4 pt-8 shadow-[0px_-10px_15px_-3px_rgba(0,0,0,0.1)] sm:px-6 md:rounded-t-[60px] md:px-10 md:pt-15">
+      <div className="bg-wood-10 min-h-42 w-full h-full rounded-t-[40px] px-4 pt-6 shadow-[0px_-8px_10px_-4px_rgba(0,0,0,0.1)] sm:px-6 md:rounded-t-[60px] md:min-h-50 md:px-10 md:pt-15 ">
         <div className="flex gap-4 border-b border-gray-400 pb-6 items-end justify-between">
           <div className="w-25 md:w-37.5">
-            <button onClick={() =>handleClick()} className="cursor-pointer">
+            <button onClick={() => handleClick()} className="cursor-pointer">
               <Image
                 className="object-cover"
                 src="/images/logo.svg"
