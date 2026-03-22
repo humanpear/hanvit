@@ -39,13 +39,13 @@ function Process() {
       <div className="px-4 py-12 sm:px-6 md:py-20">
         <div className="mx-auto w-full max-w-7xl rounded-4xl border bg-white px-5 py-10 shadow-sm sm:px-8 md:px-12 md:py-14">
           <div className="mx-auto flex max-w-2xl flex-col items-center gap-3 text-center">
-            <p className="text-sm font-semibold tracking-[0.18em] text-wood-30">
-              PROCESS
+            <p className="text-sm font-semibold text-wood-30 md:text-base">
+              이용안내
             </p>
-            <p className="font-batang text-3xl font-bold text-zinc-900 sm:text-4xl md:text-5xl">
+            <p className="font-batang text-3xl font-bold sm:text-4xl md:text-5xl">
               시공 진행 과정
             </p>
-            <p className="text-sm leading-relaxed break-keep text-zinc-600 sm:text-base">
+            <p className="text-sm leading-relaxed break-keep md:text-base">
               상담부터 계약, 자재 선택까지 전체 과정을 간단하게 안내드립니다.
             </p>
           </div>

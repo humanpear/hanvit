@@ -6,7 +6,7 @@ function PortfolioCard({ projects }: { projects: PortfolioProject[] }) {
   
   if (!projects.length) {
     return (
-      <div className="min-h-[50vh] py-20 text-center text-lg font-semibold">
+      <div className="flex min-h-[50vh] py-20 justify-center items-center text-sm md:text-lg font-semibold">
         아직 보여드릴 프로젝트가 없어요 🥹
       </div>
     );
