@@ -10,7 +10,6 @@ async function AdminPortfolioDetail({
   const project = await getPortfolioProjectId(id);
   if (!project) return;
 
-
   return (
     <div className="flex flex-col grow gap-8 pt-10">
       <span className="container mx-auto font-semibold text-3xl">

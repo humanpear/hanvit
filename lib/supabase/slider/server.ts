@@ -13,7 +13,7 @@ interface Props {
 export async function getPortfolioSlider(): Promise<SlideItem[]> {
   const supabase = await createClient()
 
-  const { data, error } = await supabase.from("slideItem").select("*").order("displayOrder", {ascending: true})
+  const { data, error } = await supabase.from("slideItem").select("*").order("displayOrder", { ascending: true })
 
   if (error) {
     console.error('이미지 수신 실패:', error)
@@ -62,8 +62,13 @@ export async function updateAdminSliderChange(slides: SlideItem[]) {
   return true;
 }
 
-export async function deleteAdminSlider(id: string) {
+export async function deleteAdminSlider(id: string, imagePath: string) {
   const supabase = await createClient()
+  
+  if (imagePath) {
+    const { error: storageError } = await supabase.storage.from("slider").remove([imagePath]);
+    if (storageError) throw storageError
+  }
 
   const { error } = await supabase
     .from("slideItem")
