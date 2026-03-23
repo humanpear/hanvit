@@ -3,6 +3,7 @@ import "./globals.css";
 import { Toaster } from "sonner";
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://hanvit-red.vercel.app/"),
   title: "한빛인테리어",
   description: "공간에 따뜻한 빛을 담는 한빛인테리어 입니다.",
   openGraph: {

@@ -15,6 +15,7 @@ export type PortfolioProject = {
   workType: string[];
   description: string;
   photos: string[];
+  imagePath: string[];
 };
 
 export async function getPortfolioProject(): Promise<PortfolioProject[]> {
@@ -29,7 +30,7 @@ export async function getPortfolioProject(): Promise<PortfolioProject[]> {
 
   const newData = data.map((project, index) => ({
     ...project,
-    index: index+1,
+    index: index + 1,
     registeredDate: format(project.registeredDate, "yyyy-MM-dd"),
     workType: project.workType.map((item: WorkTypeKey) => WORKTYPE_BY_ID[item] ?? item),
     spaceType: SPACETYPE_BY_ID[project.spaceType as SpaceTypeKey],
@@ -37,9 +38,10 @@ export async function getPortfolioProject(): Promise<PortfolioProject[]> {
       const { data } = supabase.storage.from("portfolio").getPublicUrl(imagePath);
       const imageUrl = data.publicUrl
       return imageUrl
-    })
+    }),
+    imagePath: project.photos
   }))
-  
+
   return newData as PortfolioProject[]
 }
 
@@ -63,7 +65,8 @@ export async function getPortfolioProjectId(id: string): Promise<PortfolioProjec
     registeredDate: format(data.registeredDate, "yyyy-MM-dd"),
     workType: data.workType.map((item: WorkTypeKey) => WORKTYPE_BY_ID[item] ?? item),
     spaceType: SPACETYPE_BY_ID[data.spaceType as SpaceTypeKey],
-    photos: imageUrl
+    photos: imageUrl,
+    imagePath: data.photos
   }
 
   return newData as PortfolioProject
@@ -80,7 +83,6 @@ export async function getPortfolioEditId(id: string): Promise<PortfolioProject |
     return null;
   }
 
-  // 나중에 완성되면 사용할 path -> URL로 바꾸는 코드
   const imageUrl = data.photos.map((imagePath: string) => {
     const { data: urlData } = supabase.storage.from("portfolio").getPublicUrl(imagePath);
     return urlData.publicUrl
@@ -88,13 +90,26 @@ export async function getPortfolioEditId(id: string): Promise<PortfolioProject |
 
   const newData = {
     ...data,
-    photos: imageUrl
+    photos: imageUrl,
+    imagePath: data.photos
   }
 
   return newData as PortfolioProject
 }
 
-export async function insertAdminPortfolio(formData: PortfolioProject) {
+export type PortfolioSubmitForm = {
+  id: number;
+  title: string;
+  constructionDate: string; // "YYYY-MM"
+  registeredDate: string; // "YYYY-MM-DD"
+  spaceType: string;
+  squareFeet: string;
+  workType: string[];
+  description: string;
+  photos: string[];
+};
+
+export async function insertAdminPortfolio(formData: PortfolioSubmitForm) {
   const supabase = await createClient();
 
   const { data, error } = await supabase
@@ -120,7 +135,7 @@ export async function insertAdminPortfolio(formData: PortfolioProject) {
   return { success: true, data }
 }
 
-export async function updateAdminPortfolio(formData: PortfolioProject) {
+export async function updateAdminPortfolio(formData: PortfolioSubmitForm) {
   const supabase = await createClient()
 
   const { data, error } = await supabase.from("portfolio")
@@ -147,8 +162,14 @@ export async function updateAdminPortfolio(formData: PortfolioProject) {
   return { success: true, data }
 }
 
-export async function deleteAdminPortfolio(id: number) {
+
+export async function deleteAdminPortfolio(id: number, imagePath: string[]) {
   const supabase = await createClient()
+
+  if (imagePath.length > 0) {
+    const { error: storageError } = await supabase.storage.from("portfolio").remove(imagePath);
+    if (storageError) throw storageError
+  }
 
   const { error } = await supabase
     .from("portfolio")

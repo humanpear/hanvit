@@ -22,8 +22,6 @@ function SlideUpload({ slides }: Props) {
   const [changeSlides, setChangeSlides] = useState(slides);
   const [dragIndex, setDragIndex] = useState<number | null>(null);
 
-  console.log(changeSlides);
-
   //이거 눈속임으로 만들어놓은 toast라 나중에 수정해야함
   const handleChangeFile = async (
     event: React.ChangeEvent<HTMLInputElement>,
@@ -97,8 +95,8 @@ function SlideUpload({ slides }: Props) {
     setDragIndex(null);
   };
 
-  const handleDelete = async (id: string, index: number) => {
-    const success = await deleteAdminSlider(id);
+  const handleDelete = async (id: string, index: number, imagePath: string) => {
+    const success = await deleteAdminSlider(id, imagePath);
     if (success) {
       const newSlides = changeSlides
         .filter((_, i) => i !== index)
@@ -135,7 +133,7 @@ function SlideUpload({ slides }: Props) {
             <div className="absolute flex z-10 top-0 left-0 w-full h-full justify-end p-4 items-start gap-10 bg-black/60 opacity-0 hover:opacity-100 transition-all duration-200">
               <button
                 className="cursor-pointer"
-                onClick={() => handleDelete(item.id, index)}
+                onClick={() => handleDelete(item.id, index, item.imagePath)}
               >
                 <Trash2 className="text-white" />
               </button>

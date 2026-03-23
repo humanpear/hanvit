@@ -7,6 +7,7 @@ import {
   deleteAdminPortfolio,
   insertAdminPortfolio,
   PortfolioProject,
+  PortfolioSubmitForm,
   updateAdminPortfolio,
 } from "@/lib/supabase/portfolio/server";
 import { SubmitErrorHandler, useForm } from "react-hook-form";
@@ -39,7 +40,7 @@ function PortfolioForm({
   initialData?: PortfolioProject;
 }) {
   const { register, handleSubmit, setValue, clearErrors, watch } =
-    useForm<PortfolioProject>({
+    useForm<PortfolioSubmitForm>({
       defaultValues: initialData ?? {
         title: "",
         constructionDate: "",
@@ -99,7 +100,7 @@ function PortfolioForm({
     }
   };
 
-  const onValid = async (formData: PortfolioProject) => {
+  const onValid = async (formData: PortfolioSubmitForm) => {
     const processSubmission = async () => {
       // 이미지 압축
       const compressedFile = await compressedImage(uploadImage);
@@ -137,9 +138,9 @@ function PortfolioForm({
     },);
   };
 
-  const onInValid: SubmitErrorHandler<PortfolioProject> = (errors) => {
+  const onInValid: SubmitErrorHandler<PortfolioSubmitForm> = (errors) => {
     const firstErrorField = Object.keys(errors)[0] as
-      | keyof PortfolioProject
+      | keyof PortfolioSubmitForm
       | undefined;
     if (!firstErrorField) return;
 
@@ -165,7 +166,7 @@ function PortfolioForm({
     if (!initialData) return;
     const isConfirmed = window.confirm("정말로 삭제하시겠습니까?");
     if (!isConfirmed) return;
-    const result = await deleteAdminPortfolio(initialData.id);
+    const result = await deleteAdminPortfolio(initialData.id, initialData.imagePath);
     if (!result) {
       toast.error("삭제에 실패 했습니다.", {
         position: "top-center",
