@@ -53,7 +53,7 @@ function PortfolioMain({
         {spaceFilter.map((item) => (
           <button
             className={cn(
-              "flex h-8 text-sm md:text-base md:h-10 rounded-4xl px-4 gap-2 bg-wood-20 font-semibold items-center hover:bg-[#d3c6c2] duration-300",
+              "flex h-8 text-xs md:text-sm md:h-10 rounded-4xl px-4 gap-2 bg-wood-20 font-semibold items-center hover:bg-[#d3c6c2] duration-300",
               selectedTag === item.label &&
                 "bg-primary text-white hover:bg-primary",
             )}
