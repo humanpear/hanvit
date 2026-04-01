@@ -57,3 +57,20 @@ export async function updateAdminEstimate(formData: AdminEstimate) {
 
   revalidatePath("/admin/estimate")
 }
+
+export async function deleteAdminEstimate(id: number) {
+  const supabase = await createClient()
+
+  const { error } = await supabase
+    .from("estimate")
+    .delete()
+    .eq("id", id);
+
+  if (error) {
+    console.error("삭제 실패:", error);
+    return false;
+  }
+
+  revalidatePath("/admin/estimate");
+  return true;
+}

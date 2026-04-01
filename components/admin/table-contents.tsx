@@ -1,20 +1,28 @@
 import { useForm } from "react-hook-form";
 import { Button } from "../ui/admin/button";
-import { AdminEstimate, updateAdminEstimate } from "@/lib/supabase/estimate/server";
+import {
+  AdminEstimate,
+  deleteAdminEstimate,
+  updateAdminEstimate,
+} from "@/lib/supabase/estimate/server";
 import { toast } from "sonner";
 
 function TableContents({ formData }: { formData: AdminEstimate }) {
   const { register, handleSubmit } = useForm<AdminEstimate>();
-  console.log(typeof formData.id)
-  
+
   const onValid = async (data: AdminEstimate) => {
     try {
-      await updateAdminEstimate({...data, id: formData.id});
+      await updateAdminEstimate({ ...data, id: formData.id });
     } catch (error) {
       console.error(error);
     }
-    toast.success("저장이 완료되었습니다! 👍", {position: "top-center"})
+    toast.success("저장이 완료되었습니다! 👍", { position: "top-center" });
   };
+
+  const onDelete = async (id: number) => {
+    await deleteAdminEstimate(id)
+    toast.success("삭제가 완료되었습니다.", {position: "top-center"})
+  }
 
   return (
     <form className="flex gap-2" onSubmit={handleSubmit(onValid)}>
@@ -48,9 +56,22 @@ function TableContents({ formData }: { formData: AdminEstimate }) {
             className="w-full border h-25 resize-none bg-white rounded-md px-2 py-1"
           ></textarea>
         </div>
-        <Button type="submit" variant={"default"} className="w-40 mx-auto cursor-pointer">
-          저장
-        </Button>
+        <div className="flex mx-auto gap-4">
+          <Button
+            type="submit"
+            variant={"default"}
+            className="w-30 cursor-pointer"
+          >
+            저장
+          </Button>
+          <Button
+            type="button"
+            className="w-30 cursor-pointer bg-red-600/70 hover:bg-red-600/50"
+            onClick={() => onDelete(formData.id)}
+          >
+            삭제
+          </Button>
+        </div>
       </div>
     </form>
   );
