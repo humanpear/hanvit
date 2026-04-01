@@ -14,7 +14,7 @@ import { createClient } from "@/lib/supabase/client";
 
 function Estimate() {
   const supabase = createClient();
-  const { register, handleSubmit, setValue } = useForm<EstimateForm>();
+  const { register, handleSubmit, setValue, reset } = useForm<EstimateForm>();
 
   const onValid = async (formData: EstimateForm) => {
     const { data, error } = await supabase
@@ -38,6 +38,7 @@ function Estimate() {
     } else {
       console.log("제출 성공", data)
       toast.success("견적 요청이 완료되었습니다! 👍", {position: "top-center"});
+      reset();
     }
   };
 
