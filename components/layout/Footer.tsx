@@ -61,7 +61,7 @@ function Footer() {
             화도읍 먹갓원터길 18 한빛인테리어
           </p>
           <p className="text-start font-semibold sm:text-end">
-            © 2026 Hanbit Interior Design. All Rights Reserved.
+            © 2026 Hanvit Interior Design. All Rights Reserved.
           </p>
         </div>
       </div>

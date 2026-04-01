@@ -80,7 +80,7 @@ function ContactUs() {
                     width={24}
                     height={24}
                   />
-                  <p>@hanvitys 인스타그램</p>
+                  <p>@interior_hv 인스타그램</p>
                 </div>
               </Link>
             </div>
