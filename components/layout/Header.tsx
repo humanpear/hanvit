@@ -62,7 +62,7 @@ function Header() {
           <Image
             className="w-25 object-contain pt-5 transition-all duration-300 md:w-37.5 md:pt-8"
             src="/images/logo.svg"
-            alt="Hanvit logo"
+            alt="한빛인테리어"
             width={150}
             height={60}
             style={{ opacity: logoOpacity }}

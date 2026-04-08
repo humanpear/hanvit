@@ -25,7 +25,7 @@ async function PortfolioDetailPage({
     >
       <div className="mx-auto flex w-full max-w-7xl flex-col items-center gap-4 pb-5 text-center md:gap-5">
         <p className="text-wood-30 font-bold">포트폴리오</p>
-        <p className="font-batang text-3xl font-bold sm:text-4xl md:text-5xl">
+        <p className="font-batang text-3xl font-bold px-4 break-keep sm:text-4xl md:text-5xl">
           {project.title}
         </p>
         <p className="px-4 text-sm leading-relaxed sm:text-base md:px-8">
