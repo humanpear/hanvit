@@ -75,7 +75,6 @@ export function DataTable<TData extends AdminEstimate, TValue>({
             table
               .getColumn("status")
               ?.setFilterValue(value === "all" ? "" : value);
-            console.log(value);
           }}
         >
           <SelectTrigger className="w-45">
