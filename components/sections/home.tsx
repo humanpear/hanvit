@@ -23,10 +23,9 @@ function Home() {
             </div>
           </div>
           <div className="flex flex-col gap-4 text-sm leading-relaxed sm:gap-5 sm:text-base">
-            <div className="flex">
-              <h1>한빛인테리어</h1>
+            <div className="flex">              
               <p>
-                는 공간에 따뜻한 빛을 담아, 삶을 밝히는 새로운 시작을
+                한빛인테리어는 공간에 따뜻한 빛을 담아, 삶을 밝히는 새로운 시작을
                 제안합니다.
               </p>
             </div>
