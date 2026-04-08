@@ -52,8 +52,15 @@ function PortfolioForm({
       },
     });
   const fileInputRef = useRef<HTMLInputElement | null>(null);
+  const initialUploadImages: UploadPortfolioImage[] =
+    initialData?.photos.map((url, index) => ({
+      url,
+      path: initialData.imagePath[index] ?? "",
+      isNew: false,
+    })) ?? [];
+
   const [uploadImage, setUploadImage] = useState<UploadPortfolioImage[]>(
-    initialData?.photos.map((item) => ({ url: item, isNew: false })) || [],
+    initialUploadImages,
   );
   const [dragIndex, setDragIndex] = useState<number | null>(null);
   const [isOpen, setIsOpen] = useState(false);
@@ -74,6 +81,9 @@ function PortfolioForm({
     setIsOpen(false);
   };
 
+  console.log(initialData)
+  console.log(uploadImage)
+
   const spanStyle = "min-w-22 py-2";
 
   //이미지 최적화 코드
@@ -86,8 +96,8 @@ function PortfolioForm({
 
     try {
       const compressedResult = await Promise.all(
-        uploadImage.map(async (item) => {
-          if (!item.isNew || !item.file) return { ...item };
+        uploadImage.map(async (item): Promise<UploadPortfolioImage> => {
+          if (!item.isNew) return item;
 
           const compressedFile = await imageCompression(item.file, options);
           return { ...item, file: compressedFile as File };
@@ -185,7 +195,7 @@ function PortfolioForm({
     if (!file) return;
     const fileArray = Array.from(file);
 
-    const newFile = fileArray.map((item) => ({
+    const newFile: UploadPortfolioImage[] = fileArray.map((item) => ({
       url: URL.createObjectURL(item),
       file: item,
       isNew: true,

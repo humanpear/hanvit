@@ -1,11 +1,19 @@
 import { nanoid } from "nanoid";
 import { createClient } from "../client";
 
-export type UploadPortfolioImage = {
+export type ExistingPortfolioImage = {
   url: string;
-  file?: File;
-  isNew: boolean;
-}
+  path: string;
+  isNew: false;
+};
+
+export type NewPortfolioImage = {
+  url: string;
+  file: File;
+  isNew: true;
+};
+
+export type UploadPortfolioImage = ExistingPortfolioImage | NewPortfolioImage;
 
 export async function insertAdminPortfolioImage(
   files: UploadPortfolioImage[]
@@ -16,8 +24,17 @@ export async function insertAdminPortfolioImage(
 
   return Promise.all(
     files.map(async (item) => {
-      if (!item.file) return item.url
-      
+      if (!item.isNew) {
+        if (!item.path) {
+          throw new Error("Existing image path is missing.");
+        }
+        return item.path;
+      }
+
+      if (!item.file) {
+        throw new Error("New image file is missing.");
+      }
+
       const fileExt = item.file.name.split(".").pop();
       const fileName = fileExt ? `${nanoid()}.${fileExt}` : nanoid();
       const filePath = `portfolio/${fileName}`;
