@@ -2,7 +2,7 @@
 
 > 공간에 따뜻한 빛을 담는 한빛인테리어 웹사이트
 
-**Live Demo:** https://interiorhv.com  
+**Domain:** https://interiorhv.com  
 **Repository:** https://github.com/humanpear/hanvit
 
 ---
@@ -157,22 +157,29 @@ npm start
 
 ## 📸 스크린샷
 
-> 아래에 admin 페이지 및 주요 기능 스크린샷을 추가해주세요!
-
 ### 홈페이지
-[스크린샷: 메인 페이지]
+<img width="2560" height="1440" alt="image" src="https://github.com/user-attachments/assets/19259474-6628-4868-beef-3d8cee1983f7" />
 
-### 포트폴리오 갤러리
-[스크린샷: 포트폴리오 이미지 갤러리]
+### 포트폴리오 슬라이드
+<img width="400" height="225" alt="슬라이드" src="https://github.com/user-attachments/assets/c67fa4c8-6166-45d0-a879-4a59d0d443ee" />
 
-### 상담 예약
-[스크린샷: 상담 신청 폼]
+### 포트폴리오 게시판
+<img width="400" height="225" alt="포트폴리오" src="https://github.com/user-attachments/assets/633c022d-b090-40fd-98bf-7eec85f5a1a3" />
 
-### 관리자 대시보드
-[스크린샷: 프로젝트 관리 테이블]
+### 견적 문의
+<img width="2560" height="1440" alt="image" src="https://github.com/user-attachments/assets/4d5ecdf0-091d-415d-844e-6c422806245e" />
 
-### 관리자 - 상담 신청 관리
-[스크린샷: 상담 요청 리스트]
+### 관리자 로그인 페이지
+<img width="2554" height="1261" alt="image" src="https://github.com/user-attachments/assets/e7126e07-a1b5-4e39-9077-36c943bc6e8e" />
+
+### 관리자 - 견적 문의 관리
+<img width="2550" height="1262" alt="image" src="https://github.com/user-attachments/assets/8a27816f-8cf7-46f7-93ff-fd95603075a3" />
+
+### 관리자 - 슬라이드 이미지 관리
+<img width="400" height="198" alt="슬라이드 이미지 관리" src="https://github.com/user-attachments/assets/ee8d05b5-8c69-4dda-9396-3831f6e2cf08" />
+
+### 관리자 - 포트폴리오 관리
+<img width="400" height="198" alt="포트폴리오 관리" src="https://github.com/user-attachments/assets/be425be5-69fb-4814-850b-06ad88ebc2c3" />
 
 ---
 
@@ -192,7 +199,6 @@ npm start
 
 ### 📱 고급 기능
 - 클라이언트 사이드 이미지 압축 및 최적화
-- 다크 모드 및 테마 관리
 - 무한 스크롤 및 캐러셀 UI (Swiper)
 
 ### 🎯 모던 스택
@@ -217,7 +223,7 @@ MIT License
 ---
 
 ## 📧 문의
-
+pibmaru@gmail.com
 GitHub Issues를 통해 버그 리포트와 기능 요청을 받습니다.
 
 **개발자:** [humanpear](https://github.com/humanpear)  
