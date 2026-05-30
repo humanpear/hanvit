@@ -170,15 +170,22 @@ npm start
 <img width="2560" height="1440" alt="image" src="https://github.com/user-attachments/assets/4d5ecdf0-091d-415d-844e-6c422806245e" />
 
 ### 관리자 로그인 페이지
+- 유저 정보 없을 경우 로그인 페이지로 redirect
 <img width="2554" height="1261" alt="image" src="https://github.com/user-attachments/assets/e7126e07-a1b5-4e39-9077-36c943bc6e8e" />
 
 ### 관리자 - 견적 문의 관리
+- 고객이 보낸 견적 문의에 간단한 메모 작성 및 완료/진행중 여부 체크 가능
+- 고객 이름/주소/요청사항 검색 기능 및 진행상황에 따른 필터 기능 제공
 <img width="2550" height="1262" alt="image" src="https://github.com/user-attachments/assets/8a27816f-8cf7-46f7-93ff-fd95603075a3" />
 
 ### 관리자 - 슬라이드 이미지 관리
+- 포트폴리오 슬라이드에 사용될 이미지 추가 및 삭제, 순서 변경
+- 이미지 업로드 시 이미지 최적화 후 서버에 전송
 <img width="400" height="198" alt="슬라이드 이미지 관리" src="https://github.com/user-attachments/assets/ee8d05b5-8c69-4dda-9396-3831f6e2cf08" />
 
 ### 관리자 - 포트폴리오 관리
+- 포트폴리오 게시글 CRUD 및 이미지 추가 및 삭제, 이미지 순서 변경
+- 이미지 업로드 시 이미지 최적화 후 서버에 전송
 <img width="400" height="198" alt="포트폴리오 관리" src="https://github.com/user-attachments/assets/be425be5-69fb-4814-850b-06ad88ebc2c3" />
 
 ---
